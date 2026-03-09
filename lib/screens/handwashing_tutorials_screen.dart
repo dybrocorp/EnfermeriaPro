@@ -40,14 +40,14 @@ class HandwashingTutorialsScreen extends StatelessWidget {
             
             const VideoTutorialCard(
               title: 'Lavado de Manos Clínico',
-              videoId: 'israR-SIdW0', // Video de la OMS
+              videoId: '9W6BOGFjnxs', // Nuevo video clínico
               duration: '40-60 SEG',
               description: 'Técnica obligatoria antes y después del contacto con cada paciente, después de quitarse los guantes o tener contacto con fluidos.',
             ),
             
             const VideoTutorialCard(
               title: 'Lavado de Manos Quirúrgico',
-              videoId: 'S016O-v82f0', // Video de técnica quirúrgica
+              videoId: '4STyxXHIAxU', // Nuevo video quirúrgico
               duration: '3-5 MIN',
               description: 'Procedimiento riguroso antes de cualquier intervención invasiva o ingreso a quirófano. Incluye manos y antebrazos.',
             ),

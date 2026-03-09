@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'home_screen.dart';
 import '../utils/app_colors.dart';
 import '../widgets/bouncy_card.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   bool _isLogin = true;
   bool _isLoading = false;
 
@@ -60,12 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       }
 
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-      }
+      _navigateToHome();
     } on FirebaseAuthException catch (e) {
       String message = 'Ocurrió un error';
       if (e.code == 'user-not-found') {
@@ -85,6 +82,38 @@ class _LoginScreenState extends State<LoginScreen> {
       _showError('Error inesperado: $e');
     } finally {
       if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _signInWithGoogle() async {
+    setState(() => _isLoading = true);
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        setState(() => _isLoading = false);
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await _auth.signInWithCredential(credential);
+      _navigateToHome();
+    } catch (e) {
+      _showError('Error al iniciar sesión con Google: $e');
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  void _navigateToHome() {
+    if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
     }
   }
 
@@ -213,6 +242,37 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               
+              const SizedBox(height: 24),
+              
+              // Separador "O"
+              const Row(
+                children: [
+                  Expanded(child: Divider()),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Text('O', style: TextStyle(color: AppColors.textSecondary)),
+                  ),
+                  Expanded(child: Divider()),
+                ],
+              ),
+              
+              const SizedBox(height: 24),
+              
+              // Botón Google
+              OutlinedButton.icon(
+                onPressed: _isLoading ? null : _signInWithGoogle,
+                icon: const Icon(Icons.account_circle_outlined, color: AppColors.textPrimary),
+                label: const Text(
+                  'Continuar con Google',
+                  style: TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
+                ),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  side: BorderSide(color: Colors.grey[300]!),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                ),
+              ),
+
               const SizedBox(height: 24),
               TextButton(
                 onPressed: () {

@@ -26,9 +26,24 @@ void main() async {
   tz.setLocalLocation(tz.getLocation(timeZoneName));
 
   const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
-  const InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  const DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings(
+    requestAlertPermission: true,
+    requestBadgePermission: true,
+    requestSoundPermission: true,
+  );
+  const InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+    iOS: initializationSettingsDarwin,
+  );
+  
+  await flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+    onDidReceiveNotificationResponse: (NotificationResponse response) {
+      // Handle notification tap
+    },
+  );
 
+  // Request permissions in the app state instead of main
   runApp(const EnfermeriaProApp());
 }
 
@@ -48,6 +63,10 @@ class _EnfermeriaProAppState extends State<EnfermeriaProApp> {
 
   Future<void> _requestPermissions() async {
     await Permission.notification.request();
+    // Specific implementation for Android 13+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
   }
 
   @override

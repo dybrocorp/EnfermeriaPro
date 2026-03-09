@@ -11,20 +11,36 @@ class PharmacologyScreen extends StatelessWidget {
       'color': Colors.red,
       'drugs': [
         {
-          'name': 'Paracetamol',
+          'name': 'Acetaminofén (Paracetamol)',
           'presentations': 'Tabletas (500mg, 1g), Jarabe (150mg/5ml), Gotas, Supositorios.',
-          'labs': 'Cinfa, Normon, Kern Pharma, Tylenol, Sanofi.',
+          'labs': 'Genfar, Tecnoquímicas (MK), La Santé, Sanofi (Winadol).',
           'indications': 'Dolor leve a moderado y fiebre.',
-          'contraindications': 'Insuficiencia hepática grave, hipersensibilidad.',
-          'nursing_notes': 'Monitorizar función hepática. No exceder 4g/día en adultos.'
+          'contraindications': 'Insuficiencia hepática grave.',
+          'nursing_notes': 'Dosis máx: 4g/día. Antídoto: N-acetilcisteína.'
         },
         {
-          'name': 'Ibuprofeno',
-          'presentations': 'Tabletas (400mg, 600mg), Suspensión oral (2%), Gel tópico.',
-          'labs': 'Cinfa, Advil (Pfizer), Actron (Bayer).',
-          'indications': 'Inflamación, dolor y fiebre.',
-          'contraindications': 'Úlcera péptica activa, insuficiencia renal grave.',
-          'nursing_notes': 'Administrar con alimentos para reducir irritación gástrica.'
+          'name': 'Dipirona (Metamizol)',
+          'presentations': 'Ampollas (1g/2ml, 2.5g/5ml), Tabletas (500mg).',
+          'labs': 'Genfar, Tecnoquímicas (MK), Vitalis, Eurofarma.',
+          'indications': 'Dolor severo postoperatorio o traumático, fiebre refractaria.',
+          'contraindications': 'Hipersensibilidad, agranulocitosis, hipotensión.',
+          'nursing_notes': 'Administrar lento por IV (riesgo de hipotensión severa).'
+        },
+        {
+          'name': 'Tramadol',
+          'presentations': 'Gotas (100mg/ml), Ampollas (50mg, 100mg), Cápsulas.',
+          'labs': 'Grünenthal (Tramal), Genfar, Tecnoquímicas.',
+          'indications': 'Dolor moderado a severo.',
+          'contraindications': 'Intoxicación aguda con alcohol/hipnóticos.',
+          'nursing_notes': 'Vigilar náuseas, mareo y depresión respiratoria.'
+        },
+        {
+          'name': 'Morfina',
+          'presentations': 'Ampollas (10mg/1ml), Tabletas de liberación prolongada.',
+          'labs': 'FNE (Fondo Nacional de Estupefacientes), Hospira.',
+          'indications': 'Dolor agudo severo, edema agudo de pulmón.',
+          'contraindications': 'Depresión respiratoria severa, asma bronquial aguda.',
+          'nursing_notes': 'Control estricto de constantes vitales y escala de dolor.'
         }
       ]
     },
@@ -34,42 +50,121 @@ class PharmacologyScreen extends StatelessWidget {
       'color': Colors.blue,
       'drugs': [
         {
-          'name': 'Amoxicilina',
-          'presentations': 'Cápsulas (500mg), Suspensión (250mg/5ml).',
-          'labs': 'GlaxoSmithKline (Amoxil), Normon, Sandoz.',
-          'indications': 'Infecciones bacterianas respiratorias, urinarias y de piel.',
-          'contraindications': 'Alergia a penicilinas o cefalosporinas.',
-          'nursing_notes': 'Vigilar reacciones alérgicas (rash, anafilaxia).'
+          'name': 'Ceftriaxona',
+          'presentations': 'Vial liofilizado (1g, 500mg).',
+          'labs': 'Genfar, Tecnoquímicas, Vitalis, Roche (Rocephin).',
+          'indications': 'Infecciones graves (Meningitis, Neumonía, Sepsis).',
+          'contraindications': 'Hipersensibilidad a cefalosporinas.',
+          'nursing_notes': 'Reconstituir con lidocaína para IM o solución para IV.'
+        },
+        {
+          'name': 'Vancomicina',
+          'presentations': 'Vial (500mg, 1g).',
+          'labs': 'Abbott, Pfizer, Vitalis, Genfar.',
+          'indications': 'Infecciones por MRSA, colitis por C. difficile (vía oral).',
+          'contraindications': 'Hipersensibilidad.',
+          'nursing_notes': 'Diluir en 100-250ml e infundir en min 60m (Síndrome Hombre Rojo).'
+        },
+        {
+          'name': 'Meropenem',
+          'presentations': 'Vial (500mg, 1g).',
+          'labs': 'AstraZeneca, Tecnoquímicas, Genfar.',
+          'indications': 'Infecciones intra-abdominales complicadas, meningitis.',
+          'contraindications': 'Hipersensibilidad a carbapenémicos.',
+          'nursing_notes': 'Vigilar función renal y posible aparición de convulsiones.'
+        },
+        {
+          'name': 'Clindamicina',
+          'presentations': 'Ampollas (600mg/4ml), Cápsulas (300mg).',
+          'labs': 'Genfar, La Santé, Pfizer (Dalacin).',
+          'indications': 'Infecciones por anaerobios, acné severo.',
+          'contraindications': 'Colitis pseudomembranosa.',
+          'nursing_notes': 'Diluir bien para IV, riesgo de flebitis.'
         }
       ]
     },
     {
-      'group': 'Antihipertensivos',
+      'group': 'Anestésicos y Sedantes',
+      'icon': Icons.airline_seat_flat,
+      'color': Colors.teal,
+      'drugs': [
+        {
+          'name': 'Lidocaína',
+          'presentations': 'Frascos 1% y 2% (con y sin epinefrina), Spray, Gel.',
+          'labs': 'Vitalis, Ropsohn, Zeyco.',
+          'indications': 'Anestesia local, antiarrítmico (Clase Ib).',
+          'contraindications': 'Bloqueo cardíaco severo, shock cardiogénico.',
+          'nursing_notes': 'Vigilar signos de toxicidad del SNC (convulsiones).'
+        },
+        {
+          'name': 'Propofol',
+          'presentations': 'Ampollas/Frascos emulsión (10mg/ml).',
+          'labs': 'B. Braun, Fresenius Kabi, AstraZeneca (Diprivan).',
+          'indications': 'Inducción y mantenimiento de anestesia, sedación en UCI.',
+          'contraindications': 'Alergia al huevo/soja.',
+          'nursing_notes': 'Técnica aséptica rigurosa (emulsión lipídica favorece bacterias).'
+        },
+        {
+          'name': 'Bupivacaína',
+          'presentations': 'Frascos 0.5% (Isobárica e Hiperbárica).',
+          'labs': 'Vitalis, Ropsohn, AstraZeneca (Marcaine).',
+          'indications': 'Anestesia regional, epidural y espinal.',
+          'contraindications': 'Infección en sitio de punción, coagulopatía.',
+          'nursing_notes': 'Vigilar nivel de bloqueo sensorial y motor.'
+        },
+        {
+          'name': 'Fentanilo',
+          'presentations': 'Ampollas (0.5mg/10ml - 50mcg/ml).',
+          'labs': 'FNE, Vitalis, Janssen (Sublimaze).',
+          'indications': 'Analgesia quirúrgica, sedación en ventilación mecánica.',
+          'contraindications': 'Depresión respiratoria aguda.',
+          'nursing_notes': 'Potente opioide. Vigilar rigidez torácica y oximetría.'
+        }
+      ]
+    },
+    {
+      'group': 'Antihipertensivos y Cardiovascular',
       'icon': Icons.favorite,
       'color': Colors.orange,
       'drugs': [
         {
-          'name': 'Enalapril',
-          'presentations': 'Tabletas (5mg, 10mg, 20mg).',
-          'labs': 'MSD (Renitec), Cinfa, Pfizer.',
-          'indications': 'Hipertensión arterial e insuficiencia cardíaca.',
-          'contraindications': 'Embarazo, antecedentes de angioedema.',
-          'nursing_notes': 'Controlar PA y potasio. Puede causar tos seca.'
+          'name': 'Losartán',
+          'presentations': 'Tabletas (50mg, 100mg).',
+          'labs': 'Genfar, Tecnoquímicas, La Santé, MSD (Cozaar).',
+          'indications': 'Hipertensión arterial, nefropatía diabética.',
+          'contraindications': 'Embarazo, estenosis bilateral de arteria renal.',
+          'nursing_notes': 'Vigilar niveles de potasio sérico.'
+        },
+        {
+          'name': 'Amlodipino',
+          'presentations': 'Tabletas (5mg, 10mg).',
+          'labs': 'Genfar, Procaps, Pfizer (Norvasc).',
+          'indications': 'Hipertensión, angina de pecho.',
+          'contraindications': 'Hipotensión severa, shock.',
+          'nursing_notes': 'Vigilar edema en miembros inferiores.'
         }
       ]
     },
     {
-      'group': 'Antidiabéticos Orales',
-      'icon': Icons.bloodtype,
-      'color': Colors.purple,
+      'group': 'Gastrointestinales',
+      'icon': Icons.restaurant,
+      'color': Colors.green,
       'drugs': [
         {
-          'name': 'Metformina',
-          'presentations': 'Tabletas (500mg, 850mg, 1000mg).',
-          'labs': 'Merck (Glucophage), Sandoz, Teva.',
-          'indications': 'Diabetes Mellitus Tipo 2.',
-          'contraindications': 'Insuficiencia renal moderada/grave, acidosis láctica.',
-          'nursing_notes': 'Valorar función renal periódicamente. Administrar con comidas.'
+          'name': 'Omeprazol',
+          'presentations': 'Cápsulas (20mg), Vial (40mg).',
+          'labs': 'Genfar, Tecnoquímicas, AstraZeneca (Losec).',
+          'indications': 'Gastritis, úlcera péptica, reflujo gastroesofágico.',
+          'contraindications': 'Hipersensibilidad.',
+          'nursing_notes': 'Administrar 30-60 min antes de la comida. IV pasar lento.'
+        },
+        {
+          'name': 'Metoclopramida',
+          'presentations': 'Ampollas (10mg/2ml), Gotas, Tabletas (10mg).',
+          'labs': 'Vitalis, Genfar, Procaps.',
+          'indications': 'Náuseas y vómitos, gastroparesia.',
+          'contraindications': 'Obstrucción intestinal, hemorragia digestiva.',
+          'nursing_notes': 'Vigilar efectos extrapiramidales (distonía).'
         }
       ]
     }

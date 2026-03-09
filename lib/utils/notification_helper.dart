@@ -31,56 +31,53 @@ class NotificationHelper {
   }
 
   static Future<void> scheduleEventNotifications(CalendarEvent event) async {
-    final int eventId = event.dateTime.millisecondsSinceEpoch ~/ 1000;
+    // Generate a unique base ID for this event based on its title and timestamp
+    final int baseId = (event.title.hashCode + event.dateTime.millisecondsSinceEpoch) % 1000000;
     
-    // Cancel existing notifications for this event to avoid duplicates
-    await flutterLocalNotificationsPlugin.cancel(eventId);
+    // Cancel any previous notifications associated with this event
+    // Ideally we'd track IDs, but as a fallback we cancel by a range if needed,
+    // though cancel(id) is standard.
+    await flutterLocalNotificationsPlugin.cancel(baseId);
 
     final tz.TZDateTime scheduledDate = tz.TZDateTime.from(event.dateTime, tz.local);
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
 
     if (scheduledDate.isBefore(now)) return;
 
-    // Base notification (at the time of the event)
+    // 1. Main Notification (at event time)
     await _scheduleNotification(
-      id: eventId,
-      title: 'Recordatorio de Evento',
-      body: 'Hoy: ${event.title}',
+      id: baseId,
+      title: '¡Es hora del evento!',
+      body: 'Inicia ahora: ${event.title}',
       scheduledDate: scheduledDate,
     );
 
-    // Periodic Alerts
+    // 2. Pre-event Alerts
     if (event.alertFrequency != null && event.alertFrequency! > 0) {
-      // Schedule alerts leading up to the event at the specified interval
-      // For simplicity, we'll schedule a few alerts before the event
-      for (int i = 1; i <= 5; i++) {
+      // Schedule 3 reminders before the event
+      for (int i = 1; i <= 3; i++) {
         final alertDate = scheduledDate.subtract(Duration(minutes: event.alertFrequency! * i));
         if (alertDate.isAfter(now)) {
           await _scheduleNotification(
-            id: eventId + i,
-            title: 'Alerta Próxima',
-            body: 'Tu evento "${event.title}" es en ${event.alertFrequency! * i} minutos.',
+            id: baseId + (i * 1000),
+            title: 'Recordatorio Próximo',
+            body: 'Tu evento "${event.title}" inicia en ${event.alertFrequency! * i} minutos.',
             scheduledDate: alertDate,
           );
         }
       }
     } else {
-      // Default behavior: reminders every 30 minutes starting 24h before
-      final tz.TZDateTime startOfReminders = scheduledDate.subtract(const Duration(hours: 24));
-      
-      if (now.isBefore(scheduledDate)) {
-        tz.TZDateTime reminderTime = startOfReminders.isAfter(now) ? startOfReminders : now.add(const Duration(minutes: 1));
-        
-        int reminderId = 100; // Offset for reminder IDs
-        while (reminderTime.isBefore(scheduledDate) && reminderId < 148) { // Limit to ~48 reminders
+      // Default: 1 hour before and 15 mins before
+      final preAlerts = [60, 15];
+      for (var mins in preAlerts) {
+        final alertDate = scheduledDate.subtract(Duration(minutes: mins));
+        if (alertDate.isAfter(now)) {
           await _scheduleNotification(
-            id: eventId + reminderId,
-            title: 'Recordatorio de Examen',
-            body: 'No olvides preparar tu examen: ${event.title}',
-            scheduledDate: reminderTime,
+            id: baseId + mins,
+            title: 'Recordatorio',
+            body: 'Tu evento "${event.title}" inicia en $mins minutos.',
+            scheduledDate: alertDate,
           );
-          reminderTime = reminderTime.add(const Duration(minutes: 30));
-          reminderId++;
         }
       }
     }
