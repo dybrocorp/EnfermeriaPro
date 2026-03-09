@@ -18,6 +18,11 @@ import 'premium_screen.dart';
 import '../widgets/banner_ad_widget.dart';
 import '../services/premium_service.dart';
 import 'login_screen.dart';
+import 'profile_screen.dart';
+import 'anatomy_systems_screen.dart';
+import 'imc_calculator_screen.dart';
+import 'drip_rate_calculator_screen.dart';
+import '../widgets/premium_gate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -85,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: AppColors.primaryGradient,
+            gradient: AppColors.premiumGradient,
           ),
         ),
         foregroundColor: Colors.white,
@@ -98,51 +103,91 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: Drawer(
+        backgroundColor: AppColors.background,
         child: Column(
           children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.white,
-                      child: Icon(Icons.person, size: 40, color: AppColors.primary),
+            UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(
+                gradient: AppColors.premiumGradient,
+              ),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: FirebaseAuth.instance.currentUser?.photoURL != null 
+                    ? NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!) 
+                    : null,
+                child: FirebaseAuth.instance.currentUser?.photoURL == null 
+                    ? const Icon(Icons.person, size: 40, color: AppColors.primary) 
+                    : null,
+              ),
+              accountName: Text(
+                FirebaseAuth.instance.currentUser?.displayName ?? 'Usuario de Enfermería',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              accountEmail: Text(FirebaseAuth.instance.currentUser?.email ?? 'invitado@pro.com'),
+            ),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  _buildDrawerItem(
+                    icon: Icons.person_outline,
+                    title: 'Mi Perfil',
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfileScreen())),
+                  ),
+                  _buildDrawerItem(
+                    icon: Icons.workspace_premium,
+                    title: 'Suscripción Elite',
+                    subtitle: PremiumService.isPremium ? 'Plan Pro Activo' : 'Ver beneficios',
+                    iconColor: AppColors.premiumGold,
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PremiumScreen())).then((_) => setState(() {})),
+                  ),
+                  const Divider(),
+                  _buildDrawerHeader('HERRAMIENTAS ELITE'),
+                  _buildDrawerItem(
+                    icon: Icons.monitor_weight_outlined,
+                    title: 'Calculadora IMC',
+                    onTap: () => Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (_) => const PremiumGate(child: IMCCalculatorScreen(), featureName: 'Calculadora IMC'))
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      FirebaseAuth.instance.currentUser?.email ?? 'Usuario',
-                      style: const TextStyle(color: Colors.white, fontSize: 14),
+                  ),
+                  _buildDrawerItem(
+                    icon: Icons.opacity,
+                    title: 'Control de Goteo',
+                    onTap: () => Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (_) => const PremiumGate(child: DripRateCalculatorScreen(), featureName: 'Control de Goteo'))
                     ),
-                  ],
-                ),
+                  ),
+                  _buildDrawerItem(
+                    icon: Icons.auto_stories,
+                    title: 'Sistemas de Anatomía',
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AnatomySystemsScreen())),
+                  ),
+                  const Divider(),
+                  _buildDrawerItem(
+                    icon: Icons.logout,
+                    title: 'Cerrar Sesión',
+                    iconColor: AppColors.danger,
+                    onTap: () async {
+                      await FirebaseAuth.instance.signOut();
+                      if (!context.mounted) return;
+                      Navigator.pushAndRemoveUntil(
+                        context, 
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        (route) => false,
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.stars, color: Colors.amber),
-              title: const Text('Modo Premium'),
-              subtitle: Text(PremiumService.isPremium ? 'Activo' : 'Obtener beneficios'),
-              onTap: () async {
-                Navigator.pop(context);
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => const PremiumScreen()));
-                setState(() {}); // Refresh state after returning
-              },
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.logout, color: AppColors.danger),
-              title: const Text('Cerrar Sesión'),
-              onTap: () async {
-                await FirebaseAuth.instance.signOut();
-                if (!context.mounted) return;
-                Navigator.pushAndRemoveUntil(
-                  context, 
-                  MaterialPageRoute(builder: (context) => const LoginScreen()),
-                  (route) => false,
-                );
-              },
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Versión 1.2.0',
+                style: TextStyle(color: AppColors.textSecondary.withOpacity(0.5), fontSize: 12),
+              ),
             ),
           ],
         ),
@@ -159,9 +204,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Text(
                       'Bienvenido, Futuro Enfermero(a)',
                       style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.textPrimary,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w900,
+                        color: AppColors.primary,
+                        letterSpacing: -0.5,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -422,6 +468,30 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDrawerItem({required IconData icon, required String title, String? subtitle, Color? iconColor, required VoidCallback onTap}) {
+    return ListTile(
+      leading: Icon(icon, color: iconColor ?? AppColors.primary),
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
+      subtitle: subtitle != null ? Text(subtitle, style: const TextStyle(fontSize: 12)) : null,
+      onTap: onTap,
+    );
+  }
+
+  Widget _buildDrawerHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: AppColors.primary.withValues(alpha: 0.6),
+          letterSpacing: 1.2,
         ),
       ),
     );
