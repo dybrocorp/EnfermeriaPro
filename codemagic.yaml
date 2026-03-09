@@ -1,0 +1,30 @@
+workflows:
+  ios-workflow:
+    name: iOS Build
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Set up code signing
+        script: |
+          # Note: User needs to set up code signing in Codemagic UI
+          # or provide certificates/provisioning profiles as environment variables
+          echo "Signing will be handled by Codemagic UI configuration"
+      - name: Get Flutter dependencies
+        script: |
+          flutter pub get
+      - name: Install specialized pods
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+      - name: Build iOS IPA
+        script: |
+          flutter build ipa --release --no-codesign
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      email:
+        recipients:
+          - dybro@example.com # User should update this
