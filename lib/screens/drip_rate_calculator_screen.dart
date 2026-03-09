@@ -126,7 +126,7 @@ class _DripRateCalculatorScreenState extends State<DripRateCalculatorScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
+        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
       ),
       child: Column(
         children: [
@@ -142,12 +142,12 @@ class _DripRateCalculatorScreenState extends State<DripRateCalculatorScreen> {
   }
 
   Widget _buildInfoCard() {
-    return Card(
+    return const Card(
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text('Fórmulas utilizadas:', style: TextStyle(fontWeight: FontWeight.bold)),
             Divider(),
             Text('• Macro: Vol / (Tiempo hr x 3)'),

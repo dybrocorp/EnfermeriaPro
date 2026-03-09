@@ -19,7 +19,6 @@ import '../widgets/banner_ad_widget.dart';
 import '../services/premium_service.dart';
 import 'login_screen.dart';
 import 'profile_screen.dart';
-import 'anatomy_systems_screen.dart';
 import 'imc_calculator_screen.dart';
 import 'drip_rate_calculator_screen.dart';
 import '../widgets/premium_gate.dart';
@@ -141,30 +140,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     iconColor: AppColors.premiumGold,
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PremiumScreen())).then((_) => setState(() {})),
                   ),
-                  const Divider(),
-                  _buildDrawerHeader('HERRAMIENTAS ELITE'),
-                  _buildDrawerItem(
-                    icon: Icons.monitor_weight_outlined,
-                    title: 'Calculadora IMC',
-                    onTap: () => Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (_) => const PremiumGate(child: IMCCalculatorScreen(), featureName: 'Calculadora IMC'))
-                    ),
-                  ),
-                  _buildDrawerItem(
-                    icon: Icons.opacity,
-                    title: 'Control de Goteo',
-                    onTap: () => Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (_) => const PremiumGate(child: DripRateCalculatorScreen(), featureName: 'Control de Goteo'))
-                    ),
-                  ),
-                  _buildDrawerItem(
-                    icon: Icons.auto_stories,
-                    title: 'Sistemas de Anatomía',
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AnatomySystemsScreen())),
-                  ),
-                  const Divider(),
                   _buildDrawerItem(
                     icon: Icons.logout,
                     title: 'Cerrar Sesión',
@@ -185,8 +160,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Versión 1.2.0',
-                style: TextStyle(color: AppColors.textSecondary.withOpacity(0.5), fontSize: 12),
+                'Versión 1.3.1',
+                style: TextStyle(color: AppColors.textSecondary.withValues(alpha: 0.5), fontSize: 12),
               ),
             ),
           ],
@@ -303,6 +278,22 @@ class _HomeScreenState extends State<HomeScreen> {
                             icon: Icons.menu_book,
                             color: AppColors.warning,
                             destination: const GlossaryScreen(),
+                            width: 130,
+                          ),
+                          _buildModuleCard(
+                            context,
+                            title: 'Calculadora\nIMC',
+                            icon: Icons.monitor_weight_outlined,
+                            color: const Color(0xFF16A085),
+                            destination: const PremiumGate(featureName: 'Calculadora IMC', child: IMCCalculatorScreen()),
+                            width: 130,
+                          ),
+                          _buildModuleCard(
+                            context,
+                            title: 'Control\nde Goteo',
+                            icon: Icons.opacity,
+                            color: const Color(0xFF27AE60),
+                            destination: const PremiumGate(featureName: 'Control de Goteo', child: DripRateCalculatorScreen()),
                             width: 130,
                           ),
                         ],
@@ -479,21 +470,6 @@ class _HomeScreenState extends State<HomeScreen> {
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
       subtitle: subtitle != null ? Text(subtitle, style: const TextStyle(fontSize: 12)) : null,
       onTap: onTap,
-    );
-  }
-
-  Widget _buildDrawerHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: AppColors.primary.withValues(alpha: 0.6),
-          letterSpacing: 1.2,
-        ),
-      ),
     );
   }
 }

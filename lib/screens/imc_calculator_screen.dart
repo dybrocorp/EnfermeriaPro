@@ -149,12 +149,12 @@ class _IMCCalculatorScreenState extends State<IMCCalculatorScreen> {
   }
 
   Widget _buildExplanationCard() {
-    return Card(
+    return const Card(
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text('Rangos OMS:', style: TextStyle(fontWeight: FontWeight.bold)),
             Divider(),
             Text('• < 18.5: Bajo peso'),

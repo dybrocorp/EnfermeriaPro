@@ -11,11 +11,12 @@ class HandwashingTutorialsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Tutoriales de Lavado de Manos', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        title: const Text(
+          'Tutoriales de Lavado de Manos',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
         flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: AppColors.primaryGradient,
-          ),
+          decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
         ),
         foregroundColor: Colors.white,
       ),
@@ -41,21 +42,23 @@ class HandwashingTutorialsScreen extends StatelessWidget {
                     style: TextStyle(color: AppColors.textSecondary),
                   ),
                   const SizedBox(height: 24),
-                  
+
                   const VideoTutorialCard(
                     title: 'Lavado de Manos Clínico',
                     videoId: '9W6BOGFjnxs', // Nuevo video clínico
                     duration: '40-60 SEG',
-                    description: 'Técnica obligatoria antes y después del contacto con cada paciente, después de quitarse los guantes o tener contacto con fluidos.',
+                    description:
+                        'Técnica obligatoria antes y después del contacto con cada paciente, después de quitarse los guantes o tener contacto con fluidos.',
                   ),
-                  
+
                   const VideoTutorialCard(
                     title: 'Lavado de Manos Quirúrgico',
                     videoId: '4STyxXHIAxU', // Nuevo video quirúrgico
                     duration: '3-5 MIN',
-                    description: 'Procedimiento riguroso antes de cualquier intervención invasiva o ingreso a quirófano. Incluye manos y antebrazos.',
+                    description:
+                        'Procedimiento riguroso antes de cualquier intervención invasiva o ingreso a quirófano. Incluye manos y antebrazos.',
                   ),
-                  
+
                   const SizedBox(height: 16),
                   _buildTipsCard(),
                 ],
