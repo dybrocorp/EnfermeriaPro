@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import '../main.dart';
@@ -11,11 +12,15 @@ class NotificationHelper {
   }) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      'enfermeria_pro_channel',
-      'Alertas Clínicas',
-      channelDescription: 'Recordatorios y alertas de medicina',
+      'enfermeria_pro_event_channel_v4', // Incremented ID for fresh configuration
+      'Alertas Prioritarias',
+      channelDescription: 'Alarmas y alertas críticas para eventos',
       importance: Importance.max,
       priority: Priority.high,
+      fullScreenIntent: true,
+      audioAttributesUsage: AudioAttributesUsage.alarm,
+      enableLights: true,
+      enableVibration: true,
       showWhen: true,
       icon: '@mipmap/ic_launcher',
     );
@@ -27,6 +32,14 @@ class NotificationHelper {
       title,
       body,
       platformChannelSpecifics,
+    );
+  }
+
+  static Future<void> showTestNotification() async {
+    await showNotification(
+      id: 9999,
+      title: 'Prueba de Alerta',
+      body: 'Si ves esto, las notificaciones directas están funcionando.',
     );
   }
 
@@ -43,6 +56,16 @@ class NotificationHelper {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
 
     if (scheduledDate.isBefore(now)) return;
+
+    // Check for exact alarm permission on Android 13+ (optional but recommended)
+    final bool? isExactPermissionGranted = await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+        ?.canScheduleExactNotifications();
+        
+    if (isExactPermissionGranted == false) {
+      debugPrint("ALERTA: No se pueden programar alarmas exactas. Solicite permiso al usuario.");
+      // Note: Ideally we guide the user to settings here, but for now we log it.
+    }
 
     // 1. Main Notification (at event time)
     await _scheduleNotification(
@@ -96,12 +119,13 @@ class NotificationHelper {
       scheduledDate,
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'enfermeria_pro_event_channel',
-          'Recordatorios de Eventos',
-          channelDescription: 'Alarmas y alertas periódicas para exámenes y eventos',
+          'enfermeria_pro_event_channel_v4',
+          'Alertas de Eventos',
+          channelDescription: 'Canal para alertas de calendario y estudio',
           importance: Importance.max,
           priority: Priority.high,
           fullScreenIntent: true,
+          audioAttributesUsage: AudioAttributesUsage.alarm,
         ),
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,

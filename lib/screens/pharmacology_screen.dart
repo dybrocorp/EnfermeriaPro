@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
+import '../widgets/banner_ad_widget.dart';
 
 class PharmacologyScreen extends StatelessWidget {
   const PharmacologyScreen({super.key});
@@ -183,65 +184,71 @@ class PharmacologyScreen extends StatelessWidget {
         ),
         foregroundColor: Colors.white,
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemCount: _drugData.length,
-        itemBuilder: (context, index) {
-          final group = _drugData[index];
-          return Card(
-            elevation: 4,
-            margin: const EdgeInsets.only(bottom: 20),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            child: Theme(
-              data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-              child: ExpansionTile(
-                leading: CircleAvatar(
-                  backgroundColor: (group['color'] as Color).withValues(alpha: 0.1),
-                  child: Icon(group['icon'] as IconData, color: group['color'] as Color),
-                ),
-                title: Text(
-                  group['group']!,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                children: (group['drugs'] as List).map<Widget>((drug) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[50],
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.grey[200]!),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16.0),
+              itemCount: _drugData.length,
+              itemBuilder: (context, index) {
+                final group = _drugData[index];
+                return Card(
+                  elevation: 4,
+                  margin: const EdgeInsets.only(bottom: 20),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  child: Theme(
+                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                    child: ExpansionTile(
+                      leading: CircleAvatar(
+                        backgroundColor: (group['color'] as Color).withValues(alpha: 0.1),
+                        child: Icon(group['icon'] as IconData, color: group['color'] as Color),
                       ),
-                      child: ExpansionTile(
-                        title: Text(drug['name'], style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
-                        subtitle: Text(drug['indications'], style: const TextStyle(fontSize: 12)),
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      title: Text(
+                        group['group']!,
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                      children: (group['drugs'] as List).map<Widget>((drug) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[50],
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.grey[200]!),
+                            ),
+                            child: ExpansionTile(
+                              title: Text(drug['name'], style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
+                              subtitle: Text(drug['indications'], style: const TextStyle(fontSize: 12)),
                               children: [
-                                _buildDetailRow('Presentaciones', drug['presentations']),
-                                const SizedBox(height: 8),
-                                _buildDetailRow('Laboratorios', drug['labs']),
-                                const SizedBox(height: 8),
-                                _buildDetailRow('Contraindicaciones', drug['contraindications']),
-                                const SizedBox(height: 12),
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.warning.withValues(alpha: 0.1),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Row(
+                                Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const Icon(Icons.info_outline, size: 18, color: AppColors.warning),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text(
-                                          'Nota: ${drug['nursing_notes']}',
-                                          style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+                                      _buildDetailRow('Presentaciones', drug['presentations']),
+                                      const SizedBox(height: 8),
+                                      _buildDetailRow('Laboratorios', drug['labs']),
+                                      const SizedBox(height: 8),
+                                      _buildDetailRow('Contraindicaciones', drug['contraindications']),
+                                      const SizedBox(height: 12),
+                                      Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.warning.withValues(alpha: 0.1),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Icon(Icons.info_outline, size: 18, color: AppColors.warning),
+                                            const SizedBox(width: 8),
+                                            Expanded(
+                                              child: Text(
+                                                'Nota: ${drug['nursing_notes']}',
+                                                style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
@@ -250,15 +257,16 @@ class PharmacologyScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                        );
+                      }).toList(),
                     ),
-                  );
-                }).toList(),
-              ),
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+          const BannerAdWidget(),
+        ],
       ),
     );
   }

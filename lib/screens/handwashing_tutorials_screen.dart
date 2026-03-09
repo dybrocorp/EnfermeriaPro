@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 import '../widgets/video_tutorial_card.dart';
+import '../widgets/banner_ad_widget.dart';
 
 class HandwashingTutorialsScreen extends StatelessWidget {
   const HandwashingTutorialsScreen({super.key});
@@ -18,44 +19,51 @@ class HandwashingTutorialsScreen extends StatelessWidget {
         ),
         foregroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text(
-              'Técnicas de Higiene',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textPrimary,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text(
+                    'Técnicas de Higiene',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Aprende las técnicas correctas según los estándares de la OMS para prevenir infecciones.',
+                    style: TextStyle(color: AppColors.textSecondary),
+                  ),
+                  const SizedBox(height: 24),
+                  
+                  const VideoTutorialCard(
+                    title: 'Lavado de Manos Clínico',
+                    videoId: '9W6BOGFjnxs', // Nuevo video clínico
+                    duration: '40-60 SEG',
+                    description: 'Técnica obligatoria antes y después del contacto con cada paciente, después de quitarse los guantes o tener contacto con fluidos.',
+                  ),
+                  
+                  const VideoTutorialCard(
+                    title: 'Lavado de Manos Quirúrgico',
+                    videoId: '4STyxXHIAxU', // Nuevo video quirúrgico
+                    duration: '3-5 MIN',
+                    description: 'Procedimiento riguroso antes de cualquier intervención invasiva o ingreso a quirófano. Incluye manos y antebrazos.',
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  _buildTipsCard(),
+                ],
               ),
             ),
-            const SizedBox(height: 8),
-            const Text(
-              'Aprende las técnicas correctas según los estándares de la OMS para prevenir infecciones.',
-              style: TextStyle(color: AppColors.textSecondary),
-            ),
-            const SizedBox(height: 24),
-            
-            const VideoTutorialCard(
-              title: 'Lavado de Manos Clínico',
-              videoId: '9W6BOGFjnxs', // Nuevo video clínico
-              duration: '40-60 SEG',
-              description: 'Técnica obligatoria antes y después del contacto con cada paciente, después de quitarse los guantes o tener contacto con fluidos.',
-            ),
-            
-            const VideoTutorialCard(
-              title: 'Lavado de Manos Quirúrgico',
-              videoId: '4STyxXHIAxU', // Nuevo video quirúrgico
-              duration: '3-5 MIN',
-              description: 'Procedimiento riguroso antes de cualquier intervención invasiva o ingreso a quirófano. Incluye manos y antebrazos.',
-            ),
-            
-            const SizedBox(height: 16),
-            _buildTipsCard(),
-          ],
-        ),
+          ),
+          const BannerAdWidget(),
+        ],
       ),
     );
   }

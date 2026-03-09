@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 import '../utils/notification_helper.dart';
+import '../widgets/banner_ad_widget.dart';
 
 class MedicationCalculatorScreen extends StatefulWidget {
   const MedicationCalculatorScreen({super.key});
@@ -81,81 +82,88 @@ class _MedicationCalculatorScreenState extends State<MedicationCalculatorScreen>
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildInfoCard(),
-            const SizedBox(height: 24),
-            const Text(
-              'Parámetros del Cálculo',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textPrimary,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildInfoCard(),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Parámetros del Cálculo',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text('Presentación del medicamento:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: _buildInputField('Cantidad', 'Ej. 500', _presentacionCantController),
+                      ),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
+                        value: _unidadPresentacion,
+                        items: ['mg', 'g'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+                        onChanged: (val) => setState(() => _unidadPresentacion = val!),
+                      ),
+                      const SizedBox(width: 8),
+                      const Text('en'),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        flex: 2,
+                        child: _buildInputField('Volumen (ml)', 'Ej. 5', _presentacionVolController),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  _buildInputField('Dosis Indicada (mg)', 'Dosis que pide el médico', _dosisController, icon: Icons.medical_information),
+                  const SizedBox(height: 16),
+                  _buildInputField('Diluir en volumen final de (ml)', 'Volumen para diluir', _diluyenteController, icon: Icons.water_drop),
+                  const SizedBox(height: 24),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: _limpiar,
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            foregroundColor: AppColors.warning,
+                            side: const BorderSide(color: AppColors.warning),
+                          ),
+                          child: const Text('Limpiar', style: TextStyle(fontSize: 16)),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: _calcular,
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            backgroundColor: AppColors.secondary,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text('Calcular', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  if (_resultado != null) _buildResultCard(),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
-            const Text('Presentación del medicamento:', style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: _buildInputField('Cantidad', 'Ej. 500', _presentacionCantController),
-                ),
-                const SizedBox(width: 8),
-                DropdownButton<String>(
-                  value: _unidadPresentacion,
-                  items: ['mg', 'g'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
-                  onChanged: (val) => setState(() => _unidadPresentacion = val!),
-                ),
-                const SizedBox(width: 8),
-                const Text('en'),
-                const SizedBox(width: 8),
-                Expanded(
-                  flex: 2,
-                  child: _buildInputField('Volumen (ml)', 'Ej. 5', _presentacionVolController),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildInputField('Dosis Indicada (mg)', 'Dosis que pide el médico', _dosisController, icon: Icons.medical_information),
-            const SizedBox(height: 16),
-            _buildInputField('Diluir en volumen final de (ml)', 'Volumen para diluir', _diluyenteController, icon: Icons.water_drop),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: _limpiar,
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      foregroundColor: AppColors.warning,
-                      side: const BorderSide(color: AppColors.warning),
-                    ),
-                    child: const Text('Limpiar', style: TextStyle(fontSize: 16)),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: _calcular,
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: AppColors.secondary,
-                      foregroundColor: Colors.white,
-                    ),
-                    child: const Text('Calcular', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
-            if (_resultado != null) _buildResultCard(),
-          ],
-        ),
+          ),
+          const BannerAdWidget(),
+        ],
       ),
     );
   }

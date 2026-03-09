@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'services/premium_service.dart';
 import 'screens/splash_screen.dart';
 import 'utils/app_colors.dart';
 
@@ -12,6 +13,9 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterL
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize Premium and AdMob
+  await PremiumService.init();
   
   // Initialize Firebase (Expects google-services.json / GoogleService-Info.plist)
   try {

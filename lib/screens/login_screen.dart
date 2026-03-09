@@ -103,7 +103,16 @@ class _LoginScreenState extends State<LoginScreen> {
       await _auth.signInWithCredential(credential);
       _navigateToHome();
     } catch (e) {
-      _showError('Error al iniciar sesión con Google: $e');
+      String errorMessage = 'Error al iniciar sesión con Google';
+      if (e.toString().contains('12500')) {
+        errorMessage = 'Error 12500: Fallo en la configuración de la app (SHA-1 o google-services.json)';
+      } else if (e.toString().contains('10')) {
+        errorMessage = 'Error 10: Error de configuración en Firebase Console o SHAs inconsistentes';
+      } else if (e.toString().contains('network_error')) {
+        errorMessage = 'Error de red: Revisa tu conexión a internet';
+      }
+      
+      _showError('$errorMessage: $e');
       if (mounted) setState(() => _isLoading = false);
     }
   }
