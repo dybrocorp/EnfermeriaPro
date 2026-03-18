@@ -1,0 +1,787 @@
+[
+  {
+    "label": "ABACAVIR",
+    "generic_name": "ABACAVIR",
+    "url": "https://www.vademecum.es/colombia/medicamento/1539133/abacavir"
+  },
+  {
+    "label": "AMPICILINA Y SULBACTAM  FARMALOGICA 1 g/0,5 g",
+    "generic_name": "AMPICILINA Y SULBACTAM",
+    "url": "https://www.vademecum.es/colombia/medicamento/1539133/ampicilina-y-sulbactam-farmalogica-1-g-0-5-g-polvo-para-sol-iny-"
+  },
+  {
+    "label": "ARANESP 100 mcg/0,5 ml Sol. iny.",
+    "generic_name": "ARANESP",
+    "url": "https://www.vademecum.es/colombia/medicamento/1539064/aranesp-100-mcg-0-5-ml-sol-iny-"
+  },
+  {
+    "label": "AUROPENNZ 2 g/1 g Polvo para sol. iny.",
+    "generic_name": "AUROPENNZ",
+    "url": "https://www.vademecum.es/colombia/medicamento/1538971/auropennz-2-g-1-g-polvo-para-sol-iny-"
+  },
+  {
+    "label": "AVOSAL 1 g/0,5 g Polvo para sol. iny.",
+    "generic_name": "AVOSAL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1561507/avosal-1-g-0-5-g-polvo-para-sol-iny-"
+  },
+  {
+    "label": "AZACITIDINA 100 mg Liof. para sol. iny.",
+    "generic_name": "AZACITIDINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1558558/azacitidina-100-mg-liof-para-sol-iny-"
+  },
+  {
+    "label": "ALIZAPRIDA HUMAX 50 mg/2 ml Sol. iny.",
+    "generic_name": "ALIZAPRIDA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1556689/alizaprida-humax-50-mg-2-ml-sol-iny-"
+  },
+  {
+    "label": "AMPICILINA  VITALIS 500 mg Polvo para sol. iny.",
+    "generic_name": "AMPICILINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1539136/ampicilina-vitalis-500-mg-polvo-para-sol-iny-"
+  },
+  {
+    "label": "BOTEMIB 1 mg Liof. para sol. iny.",
+    "generic_name": "BOTEMIB",
+    "url": "https://www.vademecum.es/colombia/medicamento/1549398/botemib-1-mg-liof-para-sol-iny-"
+  },
+  {
+    "label": "BOTOX 100 U Polvo para sol. iny.",
+    "generic_name": "BOTOX",
+    "url": "https://www.vademecum.es/colombia/medicamento/1538693/botox-100-u-polvo-para-sol-iny-"
+  },
+  {
+    "label": "BUTILBROMURO HIOSCINA RYAN 20 mg/ml Sol. iny.",
+    "generic_name": "BUTILBROMURO HIOSCINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1538613/butilbromuro-hioscina-ryan-20-mg-ml-sol-iny-"
+  },
+  {
+    "label": "BERIGLOBINA - P 800 mg/5 ml Sol. iny.",
+    "generic_name": "BERIGLOBINA - P",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559022/beriglobina-p-800-mg-5-ml-sol-iny-"
+  },
+  {
+    "label": "BENLYSTA 400 mg Liof. para sol. iny.",
+    "generic_name": "BENLYSTA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1561501/benlysta-400-mg-liof-para-sol-iny-"
+  },
+  {
+    "label": "BETAMETASONA INYECTABLE X  GENFAR 8 mg/2 ml Sol. Iny.",
+    "generic_name": "BETAMETASONA INYECTABLE X",
+    "url": "https://www.vademecum.es/colombia/medicamento/1538800/betametasona-inyectable-x-genfar-8-mg-2-ml-sol-iny-"
+  },
+  {
+    "label": "CITICOLINA  ROSBLANK 500 mg Sol. iny.",
+    "generic_name": "CITICOLINA ROSBLANK",
+    "url": "https://www.vademecum.es/colombia/medicamento/1538305/citicolina-rosblank-500-mg-sol-iny-"
+  },
+  {
+    "label": "CITARABINA FRESENIUS KABI 500 mg/5 ml Sol. iny.",
+    "generic_name": "CITARABINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1560271/citarabina-fresenius-kabi-500-mg-5-ml-sol-iny-"
+  },
+  {
+    "label": "CEFUROXIMA  PUNISKA 750 mg Polvo para sol. iny.",
+    "generic_name": "CEFUROXIMA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1538435/cefuroxima-puniska-750-mg-polvo-para-sol-iny-"
+  },
+  {
+    "label": "CITRATO DE FENTANILO RYAN 0,05 mg/ml  Sol iny.",
+    "generic_name": "CITRATO DE FENTANILO",
+    "url": "https://www.vademecum.es/colombia/medicamento/1538303/citrato-de-fentanilo-ryan-0-05-mg-ml-sol-iny-"
+  },
+  {
+    "label": "CLORHIDRATO DE KETAMINA HOLLAND 50 mg/ml Sol. iny.",
+    "generic_name": "CLORHIDRATO DE KETAMINA HOLLAND",
+    "url": "https://www.vademecum.es/colombia/medicamento/1626334/clorhidrato-de-ketamina-holland-50-mg-ml-sol-iny-"
+  },
+  {
+    "label": "CELESTONE ORGANON 4 mg/1 ml Sol. iny.",
+    "generic_name": "CELESTONE ORGANON",
+    "url": "https://www.vademecum.es/colombia/medicamento/1556927/celestone-organon-4-mg-1-ml-sol-iny-"
+  },
+  {
+    "label": "CHORIOMON 5000 UI Liof. para sol. iny.",
+    "generic_name": "CHORIOMON",
+    "url": "https://www.vademecum.es/colombia/medicamento/1538362/choriomon-5000-ui-liof-para-sol-iny-"
+  },
+  {
+    "label": "CARBETOCINA  VITALIS 100 mcg/ 1 ml Sol. iny",
+    "generic_name": "CARBETOCINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1549367/carbetocina-vitalis-100-mcg-1-ml-sol-iny"
+  },
+  {
+    "label": "CAFNEA 20 mg/1 ml Sol. iny.",
+    "generic_name": "CAFNEA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1538605/cafnea-20-mg-1-ml-sol-iny-"
+  },
+  {
+    "label": "CEFALOTINA 1 g Polvo para sol. iny.",
+    "generic_name": "CEFALOTINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1538473/cefalotina-1-g-polvo-para-sol-iny-"
+  },
+  {
+    "label": "CEFAZOLINA  FARMALOGICA 1 g Polvo para sol. iny.",
+    "generic_name": "CEFAZOLINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1538472/cefazolina-farmalogica-1-g-polvo-para-sol-iny-"
+  },
+  {
+    "label": "DIFENHIDRAMINA HC LICOL 10 mg/ml Sol. iny.",
+    "generic_name": "DIFENHIDRAMINA HC",
+    "url": "https://www.vademecum.es/colombia/medicamento/1560260/difenhidramina-hc-licol-10-mg-ml-sol-iny-"
+  },
+  {
+    "label": "DIPHERELINE 11,25 mg Polvo para susp.",
+    "generic_name": "DIPHERELINE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1626226/diphereline-11-25-mg-polvo-para-susp-"
+  },
+  {
+    "label": "DIPIRONA 1 g/2 ml Sol. iny.",
+    "generic_name": "DIPIRONA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1537756/dipirona-1-g-2-ml-sol-iny-"
+  },
+  {
+    "label": "DORMIPRON INYECTABLE 15 mg Sol. iny.",
+    "generic_name": "DORMIPRON INYECTABLE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1537657/dormipron-inyectable-15-mg-sol-iny-"
+  },
+  {
+    "label": "DIAZEPAM BIOSANO 10 mg/2 ml Sol. iny.",
+    "generic_name": "DIAZEPAM",
+    "url": "https://www.vademecum.es/colombia/medicamento/1537840/diazepam-biosano-10-mg-2-ml-sol-iny-"
+  },
+  {
+    "label": "DICLOFENACO BIO ESTERIL 75 mg/3 ml Sol. iny.",
+    "generic_name": "DICLOFENACO",
+    "url": "https://www.vademecum.es/colombia/medicamento/1571482/diclofenaco-bio-esteril-75-mg-3-ml-sol-iny-"
+  },
+  {
+    "label": "DIUXOTON 20 mg/ml Sol. iny.",
+    "generic_name": "DIUXOTON",
+    "url": "https://www.vademecum.es/colombia/medicamento/1537735/diuxoton-20-mg-ml-sol-iny-"
+  },
+  {
+    "label": "DESMOPRESINA ACETATO MEDYSEH LTDA. 15 mcg/1 ml Sol. iny.",
+    "generic_name": "DESMOPRESINA ACETATO",
+    "url": "https://www.vademecum.es/colombia/medicamento/1571937/desmopresina-acetato-medyseh-ltda-15-mcg-1-ml-sol-iny-"
+  },
+  {
+    "label": "DEXAMETASONA BIOSANO 8 mg/2 ml Sol. iny.",
+    "generic_name": "DEXAMETASONA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1537891/dexametasona-biosano-8-mg-2-ml-sol-iny-"
+  },
+  {
+    "label": "EPOYET 10000 UI Liof. para sol. iny.",
+    "generic_name": "EPOYET",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559419/epoyet-10000-ui-liof-para-sol-iny-"
+  },
+  {
+    "label": "EPAMIN PARENTERICO 50 mg/ml Sol. iny.",
+    "generic_name": "EPAMIN PARENTERICO",
+    "url": "https://www.vademecum.es/colombia/medicamento/1549231/epamin-parenterico-50-mg-ml-sol-iny-"
+  },
+  {
+    "label": "ERITROMAX 2000 UI/1 ml Sol. iny.",
+    "generic_name": "ERITROMAX",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559415/eritromax-2000-ui-1-ml-sol-iny-"
+  },
+  {
+    "label": "ERITROMICINA  MK 500 mg Comp. recub.",
+    "generic_name": "ERITROMICINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1537489/eritromicina-mk-500-mg-comp-recub-"
+  },
+  {
+    "label": "EPCLUSA 400 mg/100 mg Tab. recubierta",
+    "generic_name": "EPCLUSA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1537516/epclusa-400-mg-100-mg-tab-recubierta"
+  },
+  {
+    "label": "EPIBALIN 150 mg Cáps. dura",
+    "generic_name": "EPIBALIN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1571607/epibalin-150-mg-caps-dura-"
+  },
+  {
+    "label": "FUZEON POLVO SOLUCION INYECTABLE 90 mg Liof. para sol. iny.",
+    "generic_name": "FUZEON POLVO SOLUCION INYECTABLE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1537024/fuzeon-polvo-solucion-inyectable-90-mg-liof-para-sol-iny-"
+  },
+  {
+    "label": "FYBOGEL Gránulos",
+    "generic_name": "FYBOGEL GRÁNULOS",
+    "url": "https://www.vademecum.es/colombia/medicamento/1557110/fybogel-granulos"
+  },
+  {
+    "label": "FUROSEMIDA  MK 40 mg Tab.",
+    "generic_name": "FUROSEMIDA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1537033/furosemida-mk-40-mg-tab-"
+  },
+  {
+    "label": "FRAGMIN 7500 UI Sol. iny.",
+    "generic_name": "FRAGMIN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1537078/fragmin-7500-ui-sol-iny-"
+  },
+  {
+    "label": "FRAXIPARINE 2850 U/0,3 ml Sol. iny.",
+    "generic_name": "FRAXIPARINE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1571454/fraxiparine-2850-u-0-3-ml-sol-iny-en-jeringa-precargada"
+  },
+  {
+    "label": "FOSTRAMAR 3 g/1 sobre Polvo para sol. oral",
+    "generic_name": "FOSTRAMAR",
+    "url": "https://www.vademecum.es/colombia/medicamento/1537080/fostramar-3-g-1-sobre-polvo-para-sol-oral-"
+  },
+  {
+    "label": "FOTORRETIN 0,5 %/5 % Sol. oftálmica",
+    "generic_name": "FOTORRETIN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1557115/fotorretin-0-5-5-sol-oftalmica"
+  },
+  {
+    "label": "FOVIREM 200 mg/300 mg Comp. Recub.",
+    "generic_name": "FOVIREM",
+    "url": "https://www.vademecum.es/colombia/medicamento/1561519/fovirem-200-mg-300-mg-comp-recub-"
+  },
+  {
+    "label": "GEFBOOK 250 mg Tab. recub.",
+    "generic_name": "GEFBOOK",
+    "url": "https://www.vademecum.es/colombia/medicamento/1625633/gefbook-250-mg-tab-recub-"
+  },
+  {
+    "label": "GEFINEX 250 mg Tab. recubierta",
+    "generic_name": "GEFINEX",
+    "url": "https://www.vademecum.es/colombia/medicamento/1549163/gefinex-250-mg-tab-recubierta"
+  },
+  {
+    "label": "GELNIDA 3 % Gel dérmico",
+    "generic_name": "GELNIDA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1560240/gelnida-3-gel-dermico"
+  },
+  {
+    "label": "GELOFUSINE ISO 4 % Sol. iny.",
+    "generic_name": "GELOFUSINE ISO",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559104/gelofusine-iso-4-sol-iny-"
+  },
+  {
+    "label": "GELPIN 50 mg Cáps. blanda",
+    "generic_name": "GELPIN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536967/gelpin-50-mg-caps-blanda"
+  },
+  {
+    "label": "GEMCITABINA 1000 mg Liof. para sol. iny.",
+    "generic_name": "GEMCITABINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536963/gemcitabina-1000-mg-liof-para-sol-iny-"
+  },
+  {
+    "label": "GEMCOVAC-OM VAXTHERA 10 mcg Liof. para sol. iny.",
+    "generic_name": "GEMCOVAC-OM",
+    "url": "https://www.vademecum.es/colombia/medicamento/1616086/gemcovac-om-vaxthera-10-mcg-liof-para-sol-iny-"
+  },
+  {
+    "label": "HISTAFLEX JARABE 0,1 g/0,05 g/100 ml Jarabe",
+    "generic_name": "HISTAFLEX JARABE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536739/histaflex-jarabe-0-1-g-0-05-g-100-ml-jarabe"
+  },
+  {
+    "label": "HISTAIR 5 mg Tab. recubierta",
+    "generic_name": "HISTAIR",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536737/histair-5-mg-tab-recubierta"
+  },
+  {
+    "label": "HISTIVERT 16 mg Tab.",
+    "generic_name": "HISTIVERT",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559633/histivert-16-mg-tab-"
+  },
+  {
+    "label": "HISTOTAL 25000 UI Sol. oral",
+    "generic_name": "HISTOTAL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536735/histotal-25000-ui-sol-oral"
+  },
+  {
+    "label": "HIZENTRA 1 g/5 ml Sol. iny.",
+    "generic_name": "HIZENTRA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1616082/hizentra-1-g-5-ml-sol-iny-"
+  },
+  {
+    "label": "HOGAM 300 mcg/1 ml",
+    "generic_name": "HOGAM",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559632/hogam-300-mcg-1-ml-sol-iny-en-jeringa-precargada"
+  },
+  {
+    "label": "HOLMES 20 mg Tab. recubierta",
+    "generic_name": "HOLMES",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559631/holmes-20-mg-tab-recubierta"
+  },
+  {
+    "label": "HOLOXAN 2 g Polvo para sol. iny.",
+    "generic_name": "HOLOXAN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536732/holoxan-2-g-polvo-para-sol-iny-"
+  },
+  {
+    "label": "IPCA RAMCOR 5 mg Cáps. dura",
+    "generic_name": "IPCA RAMCOR",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536583/ipca-ramcor-5-mg-caps-dura"
+  },
+  {
+    "label": "IPICLAV 875 mg/125 mg Tab. recubierta",
+    "generic_name": "IPICLAV",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536582/ipiclav-875-mg-125-mg-tab-recubierta"
+  },
+  {
+    "label": "IPIPRAL 15 mg Tab.",
+    "generic_name": "IPIPRAL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536580/ipipral-15-mg-tab-"
+  },
+  {
+    "label": "IPOPRIN 2 mg Cáps. dura",
+    "generic_name": "IPOPRIN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536577/ipoprin-2-mg-caps-dura"
+  },
+  {
+    "label": "IPRASYNT 0,021 mg Aerosol",
+    "generic_name": "IPRASYNT",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536576/iprasynt-0,021-mg-aerosol"
+  },
+  {
+    "label": "IRBEPREX 150 mg Tab.",
+    "generic_name": "IRBEPREX",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536575/irbeprex-150-mg-tab-"
+  },
+  {
+    "label": "JARABE VICKMIEL 1,6 g/100 ml Jarabe",
+    "generic_name": "JARABE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536502/jarabe-vickmiel-1-6-g-100-ml-jarabe"
+  },
+  {
+    "label": "JARDIANCE 10 mg Tab. recubierta",
+    "generic_name": "JARDIANCE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536501/jardiance-10-mg-tab-recubierta"
+  },
+  {
+    "label": "KETOPROFENO GENFAR 100 mg",
+    "generic_name": "KETOPROFENO",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536436/ketoprofeno-genfar-100-mg-tab-recubierta"
+  },
+  {
+    "label": "KETESSE 25 mg Tab. recubierta",
+    "generic_name": "KETESSE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1557258/ketesse-25-mg-tab-recubierta"
+  },
+  {
+    "label": "KERADOL 10 mg Tab. recubierta",
+    "generic_name": "KERADOL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536453/keradol-tabletas-recubiertas-10-mg-tab-recubierta"
+  },
+  {
+    "label": "KESIMPTA 50 mg/1 ml Sol. iny.",
+    "generic_name": "KESIMPTA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1549079/kesimpta-50-mg-1-ml-sol-iny-en-pluma-precargada"
+  },
+  {
+    "label": "KESOFER 20 mg/ml Champú",
+    "generic_name": "KESOFER",
+    "url": "https://www.vademecum.es/colombia/medicamento/1625876/kesofer-20-mg-ml-champu"
+  },
+  {
+    "label": "KENALER - R 0,25 mg/ml Sol. oftálmica",
+    "generic_name": "KENALER - R",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536461/kenaler-r-0-25-mg-ml-sol-oftalmica"
+  },
+  {
+    "label": "KEPERTAN 100 mg/ml Sol. oral.",
+    "generic_name": "KEPERTAN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1625877/kepertan-100-mg-ml-sol-oral-"
+  },
+  {
+    "label": "LESTYNA 2,5 mg/20 mg Cáps. dura",
+    "generic_name": "LESTYNA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536304/lestyna-capsulas-2-5-mg-20-mg-caps-dura"
+  },
+  {
+    "label": "LETROZOL 2,5 mg Tab. recubierta",
+    "generic_name": "LETROZOL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1549044/letrozol-2-5-mg-tab-recubierta"
+  },
+  {
+    "label": "LEUCOMIDA 15 mg Cáps.",
+    "generic_name": "LEUCOMIDA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1625949/leucomida-15-mg-caps-"
+  },
+  {
+    "label": "LEUCO-SCINT 18 mg Liof. para sol. iny.",
+    "generic_name": "LEUCO-SCINT",
+    "url": "https://www.vademecum.es/colombia/medicamento/1549043/leuco-scint-18-mg-liof-para-sol-iny-"
+  },
+  {
+    "label": "LEUKERAN 2 mg Tab. recubierta",
+    "generic_name": "LEUKERAN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536301/leukeran-tabletas-recubiertas-2-mg-tab-recubierta"
+  },
+  {
+    "label": "LEUKUSTIM 100 mg Liof. para sol. iny.",
+    "generic_name": "LEUKUSTIM",
+    "url": "https://www.vademecum.es/colombia/medicamento/1536300/leukustim-100-mg-liof-para-sol-iny-"
+  },
+  {
+    "label": "MIDAZOLAM  VITALIS 50 mg/10 ml",
+    "generic_name": "MIDAZOLAM",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535884/midazolam-vitalis-50-mg-10-ml-sol-iny-"
+  },
+  {
+    "label": "METOCLOPRAMIDA RYAN 10 mg Sol. iny.",
+    "generic_name": "METOCLOPRAMIDA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535956/metoclopramida-ryan-10-mg-sol-iny-"
+  },
+  {
+    "label": "METOJECT 7,5 mg/0,15 ml Sol. iny.",
+    "generic_name": "METOJECT",
+    "url": "https://www.vademecum.es/colombia/medicamento/1558451/metoject-7-5-mg-0-15-ml-sol-iny-en-jeringa-precargada"
+  },
+  {
+    "label": "MIDUFARKO 5 mg/ml Sol. iny.",
+    "generic_name": "MIDUFARKO",
+    "url": "https://www.vademecum.es/colombia/medicamento/1626307/midufarko-5-mg-ml-sol-iny-"
+  },
+  {
+    "label": "MIELOZITIDINA Polvo liof.",
+    "generic_name": "MIELOZITIDINA POLVO LIOF.",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559327/mielozitidina-polvo-liof-"
+  },
+  {
+    "label": "MIRCERA 100 mcg/0,3 ml Sol. iny.",
+    "generic_name": "MIRCERA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535841/mircera-solucion-inyectable-jeringa-prellenada-100-mcg-0-3-ml-sol-iny-"
+  },
+  {
+    "label": "METHERGIN 0,2 mg/1 ml Sol. Iny.",
+    "generic_name": "METHERGIN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1558334/methergin-0-2-mg-1-ml-sol-iny-"
+  },
+  {
+    "label": "MIOACTINE 100 mg/1 ml Sol. iny.",
+    "generic_name": "MIOACTINE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535853/mioactine-100-mg-1-ml-sol-iny-"
+  },
+  {
+    "label": "MUVETT 50 mg/5 ml Sol. Iny.",
+    "generic_name": "MUVETT",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535754/muvett-inyectable-50-mg-5-ml-sol-iny-"
+  },
+  {
+    "label": "NOXPIRIN Cáps. dura",
+    "generic_name": "NOXPIRIN CÁPS. DURA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1556503/noxpirin-caps-dura"
+  },
+  {
+    "label": "NOZOMI 50 mg Liof. para sol. iny.",
+    "generic_name": "NOZOMI",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535513/nozomi-50-mg-liof-para-sol-iny-"
+  },
+  {
+    "label": "NPLATE 250 mcg Liof. para sol. iny.",
+    "generic_name": "NPLATE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535512/nplate-250-mcg-liof-para-sol-iny-"
+  },
+  {
+    "label": "NUBEQA 300 mg Tab. recubierta",
+    "generic_name": "NUBEQA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535511/nubeqa-300-mg-tab-recubierta"
+  },
+  {
+    "label": "NUCALA 100 mg Polvo para sol. iny.",
+    "generic_name": "NUCALA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535510/nucala-100-mg-polvo-para-sol-iny-"
+  },
+  {
+    "label": "NUCLEVIT FOL 70 mg/0,4 mg/60 mg",
+    "generic_name": "NUCLEVIT FOL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535508/nuclevit-fol-70-mg-0-4-mg-60-mg-tab-recubierta"
+  },
+  {
+    "label": "NUCTIS D 5600 UI/1 ml Sol. oral",
+    "generic_name": "NUCTIS D",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535507/nuctis-dgotas-orales-5600-ui-1-ml-sol-oral"
+  },
+  {
+    "label": "NUEVID 7000 UI Tab. recubierta",
+    "generic_name": "NUEVID",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535506/nuevid-7000-ui-tab-recubierta"
+  },
+  {
+    "label": "OPHTHABRACIN-D 0,1 g/0,3 g/100 g Ung.",
+    "generic_name": "OPHTHABRACIN-D",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535381/ophthabracin-d-unguento-0-1-g-0-3-g-100-g-ung-oftalmico-"
+  },
+  {
+    "label": "OPHTHAKER 5 mg/ml Sol. oftálmica",
+    "generic_name": "OPHTHAKER",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535380/ophthaker-5-mg-ml-sol-oftalmica"
+  },
+  {
+    "label": "OPHTHASONA 1 mg/1 ml Sol. oftálmica",
+    "generic_name": "OPHTHASONA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1558617/ophthasona-1-mg-1-ml-sol-oftalmica-"
+  },
+  {
+    "label": "OPPTEST HB 5 mg Tab. recubierta",
+    "generic_name": "OPPTEST HB",
+    "url": "https://www.vademecum.es/colombia/medicamento/1558616/opptest-hb-5-mg-tab-recubierta"
+  },
+  {
+    "label": "OPSUMIT 10 mg Tab. recubierta",
+    "generic_name": "OPSUMIT",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535379/opsumit-10-mg-tab-recubierta"
+  },
+  {
+    "label": "OPTI COMFORT 10 mg/2 mg/1 ml",
+    "generic_name": "OPTI COMFORT",
+    "url": "https://www.vademecum.es/colombia/medicamento/1558615/opti-comfort-10-mg-2-mg-1-ml-sol-oftalmica-"
+  },
+  {
+    "label": "OPTIALIV 3 mg/ml Sol. oftálmica",
+    "generic_name": "OPTIALIV",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535378/optialiv-gotas-lubricantes-3-mg-ml-sol-oftalmica-"
+  },
+  {
+    "label": "OPTICAM 3 mg/1 ml Sol. oftálmica",
+    "generic_name": "OPTICAM",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535377/opticam-3-mg-1-ml-sol-oftalmica"
+  },
+  {
+    "label": "OPTIRAY 300 636 mg/1 ml Sol. iny.",
+    "generic_name": "OPTIRAY",
+    "url": "https://www.vademecum.es/colombia/medicamento/1558614/optiray-300-636-mg-1-ml-sol-iny-"
+  },
+  {
+    "label": "PARKEN 25 mg/100 mg Tab.",
+    "generic_name": "PARKEN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1556487/parken-25-mg-100-mg-tab-"
+  },
+  {
+    "label": "PARMODOL 1000 mg/100 ml Sol. iny.",
+    "generic_name": "PARMODOL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535245/parmodol-solucion-inyectable-1000-mg-100-ml-sol-iny-"
+  },
+  {
+    "label": "PAROLEX 50 mg Tab. recubierta",
+    "generic_name": "PAROLEX",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535244/parolex-50-mg-tab-recubierta"
+  },
+  {
+    "label": "PAROXETINA  GENFAR 20 mg",
+    "generic_name": "PAROXETINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535241/paroxetina-genfar-20-mg-tab-recubierta"
+  },
+  {
+    "label": "PASEDOL 50 mg Tab.",
+    "generic_name": "PASEDOL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1556588/pasedol-50-mg-tab-"
+  },
+  {
+    "label": "PASMIROL 50 mg Tab.",
+    "generic_name": "PASMIROL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559595/pasmirol-50-mg-tab-"
+  },
+  {
+    "label": "PASTA AL AGUA ALMIPRO 25 g/100 g",
+    "generic_name": "PASTA AL AGUA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535239/pasta-al-agua-almipro-25-g-100-g-pasta"
+  },
+  {
+    "label": "PATALER I 2 mg/ml Sol. oftálmica",
+    "generic_name": "PATALER I",
+    "url": "https://www.vademecum.es/colombia/medicamento/1556587/pataler-i-2-mg-ml-sol-oftalmica"
+  },
+  {
+    "label": "PAX CALIENTE NOCHE 2 mg/10 mg/500 mg",
+    "generic_name": "PAX CALIENTE NOCHE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1535236/pax-caliente-noche-granulado-sabora-panela-limon-y-sabor-a-limon-2-mg-10-mg-500-mg-1-sobre-granulos"
+  },
+  {
+    "label": "QUIMOX 5 mg/ml Sol. oftálmica",
+    "generic_name": "QUIMOX",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534971/quimox-5-mg-ml-sol-oftalmica"
+  },
+  {
+    "label": "QUINAPRIL 20 mg Tab. recubierta",
+    "generic_name": "QUINAPRIL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1556485/quinapril-tecnoquimicas-20-mg-tab-recubierta"
+  },
+  {
+    "label": "QUINOMAX 400 mg Tab. recubierta",
+    "generic_name": "QUINOMAX",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534970/quinomax-400-mg-tab-recubierta"
+  },
+  {
+    "label": "RINOLAST D 25 mg/60 mg Tab. recub.",
+    "generic_name": "RINOLAST D",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534850/rinolast-d-tabletas-recubiertas-25-mg-60-mg-tab-recubierta"
+  },
+  {
+    "label": "RINOSONA 0,05 g/100 ml Susp. nasal",
+    "generic_name": "RINOSONA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534848/rinosona-0-05-g-100-ml-susp-nasal"
+  },
+  {
+    "label": "RINOTADIN 5 mg Tab. recubierta",
+    "generic_name": "RINOTADIN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559581/rinotadin-5-mg-tab-recubierta"
+  },
+  {
+    "label": "RINVOQ 15 mg Comp. LP",
+    "generic_name": "RINVOQ",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534847/rinvoq-15-mg-comp-lp"
+  },
+  {
+    "label": "RIOCI 0,5 mg Tab. recub.",
+    "generic_name": "RIOCI",
+    "url": "https://www.vademecum.es/colombia/medicamento/1625614/rioci-0-5-mg-tab-recub-"
+  },
+  {
+    "label": "RIOPAN 8 g/1 g Gel oral",
+    "generic_name": "RIOPAN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1556476/riopan-8-g-1-g-gel-oral"
+  },
+  {
+    "label": "RISNIA 1 mg Tab.",
+    "generic_name": "RISNIA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1571676/risnia-1-mg-tab-"
+  },
+  {
+    "label": "SIGNIFOR LAR 20 mg Polvo para susp.",
+    "generic_name": "SIGNIFOR LAR",
+    "url": "https://www.vademecum.es/colombia/medicamento/1558917/signifor-lar-20-mg-polvo-para-susp-iny-"
+  },
+  {
+    "label": "SIKLOS 100 mg Tab. recubierta",
+    "generic_name": "SIKLOS",
+    "url": "https://www.vademecum.es/colombia/medicamento/1571546/siklos-100-mg-tab-recubierta"
+  },
+  {
+    "label": "SIL - NORBORAL 5 mg/1000 mg",
+    "generic_name": "SIL - NORBORAL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534635/sil-norboral-5-mg-1000-mg-tab-recubierta"
+  },
+  {
+    "label": "SILDENAFIL 100 mg Tab. recubierta",
+    "generic_name": "SILDENAFIL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559273/sildenafil-100-mg-tab-recubierta"
+  },
+  {
+    "label": "TIMOGLOBULINA 25 mg Liof.",
+    "generic_name": "TIMOGLOBULINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1559788/timoglobulina-25-mg-liof-para-sol-iny-"
+  },
+  {
+    "label": "TIMOLOL  MK 5 mg/1 ml Sol. oftálmica",
+    "generic_name": "TIMOLOL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534236/timolol-mk-5-mg-1-ml-sol-oftalmica"
+  },
+  {
+    "label": "TINIDAZOL  MEMPHIS 500 mg",
+    "generic_name": "TINIDAZOL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534231/tinidazol-memphis-500-mg-tab-recubierta"
+  },
+  {
+    "label": "UPGLYCEM 5 g/100 ml Susp. oral",
+    "generic_name": "UPGLYCEM",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534009/upglycem-5-g-100-ml-susp-oral"
+  },
+  {
+    "label": "UPLIZNA 10 mg/1 ml",
+    "generic_name": "UPLIZNA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1571405/uplizna-10-mg-1-ml-concentr-para-sol-para-infus-"
+  },
+  {
+    "label": "UPTRAVI 200 mcg Tab. recubierta",
+    "generic_name": "UPTRAVI",
+    "url": "https://www.vademecum.es/colombia/medicamento/1548697/uptravi-200-mcg-tab-recubierta"
+  },
+  {
+    "label": "URALGIC 400 mg Tab. recubierta",
+    "generic_name": "URALGIC",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534008/uralgic-400-mg-tab-recubierta"
+  },
+  {
+    "label": "UREADERM 15 g/100 g Crema tópica",
+    "generic_name": "UREADERM",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534004/ureaderm-15-g-100-g-crema-topica"
+  },
+  {
+    "label": "UREXIL 80 mg Tab. recubierta",
+    "generic_name": "UREXIL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1534002/urexil-80-mg-tab-recubierta"
+  },
+  {
+    "label": "URITOS 0,1 mg Tab. recubierta",
+    "generic_name": "URITOS",
+    "url": "https://www.vademecum.es/colombia/medicamento/1571118/uritos-0-1-mg-tab-recubierta"
+  },
+  {
+    "label": "VENLAFAXINA TQ 75 mg Tab. LP",
+    "generic_name": "VENLAFAXINA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533897/venlafaxina-tq-75-mg-tab-lp"
+  },
+  {
+    "label": "VENLAVITAE 75 mg Cáps. LP",
+    "generic_name": "VENLAVITAE",
+    "url": "https://www.vademecum.es/colombia/medicamento/1571400/venlavitae-75-mg-caps-lp"
+  },
+  {
+    "label": "VENOFER 100 mg/5 ml Sol. iny.",
+    "generic_name": "VENOFER",
+    "url": "https://www.vademecum.es/colombia/medicamento/1548675/venofer-100-mg-5-ml-sol-iny-"
+  },
+  {
+    "label": "VENOSMIL 200 mg Cáps.",
+    "generic_name": "VENOSMIL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533895/venosmil-capsula-200-mg-caps-"
+  },
+  {
+    "label": "VENTILAN 100 mcg/dosis Susp. inhal.",
+    "generic_name": "VENTILAN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533892/ventilan-osp-inhalador-100-mcg-dosis-susp-inhal-"
+  },
+  {
+    "label": "VERACEF 500 mg Cáps.",
+    "generic_name": "VERACEF",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533891/veracef-capsulas-500-mg-caps-"
+  },
+  {
+    "label": "WINADEINE F 30 mg/325 mg Tab.",
+    "generic_name": "WINADEINE F",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533738/winadeine-f-30-mg-325-mg-tab-"
+  },
+  {
+    "label": "XELODA 500 mg Comp. recub.",
+    "generic_name": "XELODA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533715/xeloda-tabletas-lacadas-500-mg-comp-recub-"
+  },
+  {
+    "label": "XENICAL 120 mg Cáps. dura",
+    "generic_name": "XENICAL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533714/xenical-capsulas-120-mg-caps-dura"
+  },
+  {
+    "label": "XEOMIN 100 U Liof. para sol. iny.",
+    "generic_name": "XEOMIN",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533713/xeomin-100-u-liof-para-sol-iny-"
+  },
+  {
+    "label": "YAEL 2 mg/0,03 mg",
+    "generic_name": "YAEL",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533695/yael-2-mg-0-03-mg-tab-recubierta"
+  },
+  {
+    "label": "YODINFEX 10 g/100 ml Sol. tópica",
+    "generic_name": "YODINFEX",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533688/yodinfex-solucion-topica-10-g-100-ml-sol-topica"
+  },
+  {
+    "label": "ZOLPIDEM TQ 10 mg Tab. recubierta",
+    "generic_name": "ZOLPIDEM",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533619/zolpidem-tq-10-mg-tab-recubierta"
+  },
+  {
+    "label": "ZOPICLONA  MK 7,5 mg",
+    "generic_name": "ZOPICLONA",
+    "url": "https://www.vademecum.es/colombia/medicamento/1533612/zopiclona-mk-7-5-mg-tab-recubierta"
+  }
+]

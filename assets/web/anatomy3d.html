@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Z-Anatomy 3D Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #0d1117; /* Dark scientific background */
+    }
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      outline: none;
+    }
+    #loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #00BFA5;
+      font-family: sans-serif;
+      pointer-events: none;
+    }
+    .spinner {
+      margin: 0 auto 10px;
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(0, 191, 165, 0.3);
+      border-radius: 50%;
+      border-top-color: #00BFA5;
+      animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .text {
+      font-size: 14px;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+    #error-msg {
+      display: none;
+      color: #EF5350;
+      font-size: 13px;
+      margin-top: 10px;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div class="spinner"></div>
+    <div class="text" id="status-text">CARGANDO MODELO 3D...</div>
+    <div id="error-msg"></div>
+  </div>
+
+  <!-- Three.js + OrbitControls + GLTFLoader from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  
+  <script>
+    // --- Configuración básica de la escena ---
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0d1117, 0.05);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 15);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.minDistance = 2;
+    controls.maxDistance = 25;
+    controls.target.set(0, 0, 0); // Se ajustará dinámicamente según el modelo
+
+    // --- Luces ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight1.position.set(1, 1, 1);
+    scene.add(dirLight1);
+
+    const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
+    dirLight2.position.set(-1, -1, -1);
+    scene.add(dirLight2);
+
+    const spotLight = new THREE.SpotLight(0x00BFA5, 2);
+    spotLight.position.set(10, 10, 10);
+    spotLight.angle = Math.PI/4;
+    spotLight.penumbra = 0.5;
+    scene.add(spotLight);
+
+    const backLight = new THREE.PointLight(0x7B2FBE, 2, 50);
+    backLight.position.set(-5, 5, -10);
+    scene.add(backLight);
+
+    // --- Materiales Holográficos ---
+    const bodyMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0x1E2A3A,
+      transmission: 0.9,
+      opacity: 1,
+      metalness: 0.1,
+      roughness: 0.1,
+      ior: 1.5,
+      thickness: 1.0,
+      specularIntensity: 1,
+      transparent: true,
+      side: THREE.DoubleSide,
+      depthWrite: true
+    });
+
+    // Colores corporativos para los sistemas
+    const systemColors = {
+      'nervioso': 0x9C27B0,
+      'cardiovascular': 0xF44336,
+      'respiratorio': 0x2196F3,
+      'digestivo': 0xFFFF9800,
+      'urinario': 0x4CAF50,
+      'endocrino': 0x00BCD4,
+      'muscular': 0xFFFF5722,
+      'oseo': 0xCDDC39
+    };
+
+    // --- Contenedor Principal ---
+    const modelGroup = new THREE.Group();
+    scene.add(modelGroup);
+
+    // Grid inferior
+    const gridHelper = new THREE.GridHelper(30, 30, 0x00BFA5, 0x1E2A3A);
+    gridHelper.position.y = -3;
+    gridHelper.material.opacity = 0.2;
+    gridHelper.material.transparent = true;
+    scene.add(gridHelper);
+
+    // --- Carga del Modelo GLB ---
+    const organs = [];
+    const loader = new THREE.GLTFLoader();
+    const loadingUI = document.getElementById('loading');
+    const statusText = document.getElementById('status-text');
+    const errorMsg = document.getElementById('error-msg');
+
+    loader.load(
+      'model.glb', // Archivo local que el usuario debe colocar en assets/web
+      function (gltf) {
+        const model = gltf.scene;
+
+        // Centrar y escalar el modelo automáticamente
+        const box = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        const size = box.getSize(new THREE.Vector3());
+        
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const scale = 8 / maxDim; // Escalar a un alto aproximado de 8 unidades
+        model.scale.set(scale, scale, scale);
+        
+        model.position.x = -center.x * scale;
+        model.position.y = -center.y * scale;
+        model.position.z = -center.z * scale;
+
+        // Procesar mallas
+        model.traverse((child) => {
+          if (child.isMesh) {
+            const meshName = child.name.toLowerCase();
+            
+            // Buscar si el nombre coincide con algún sistema
+            let isSystemOrgan = false;
+            let systemKey = null;
+
+            for (const key in systemColors) {
+              if (meshName.includes(key)) {
+                isSystemOrgan = true;
+                systemKey = key;
+                break;
+              }
+            }
+
+            if (isSystemOrgan) {
+              // Material opaco iluminable para el sistema
+              const originalColor = systemColors[systemKey];
+              const mat = new THREE.MeshStandardMaterial({
+                color: originalColor,
+                roughness: 0.4,
+                metalness: 0.1,
+                emissive: 0x000000,
+                emissiveIntensity: 0.0,
+                side: THREE.DoubleSide
+              });
+              child.material = mat;
+              child.userData = { id: systemKey, glowColor: originalColor };
+              organs.push(child);
+            } else {
+              // Material de cristal (holograma) para el resto del cuerpo (piel, fascias no especificadas)
+              child.material = bodyMaterial.clone();
+            }
+          }
+        });
+
+        modelGroup.add(model);
+        loadingUI.style.display = 'none'; // Ocultar UI de carga
+      },
+      function (xhr) {
+        // Progreso de carga
+        if (xhr.lengthComputable) {
+          const percentComplete = xhr.loaded / xhr.total * 100;
+          statusText.innerText = `DESCARGANDO MODELO... ${Math.round(percentComplete)}%`;
+        }
+      },
+      function (error) {
+        console.error('Error al cargar model.glb:', error);
+        document.querySelector('.spinner').style.display = 'none';
+        statusText.innerText = "¡ESTAMOS LISTOS!";
+        errorMsg.innerHTML = "Falta el archivo <b>model.glb</b><br><br>Sigue la guía en tu computadora para descargar el modelo de Z-Anatomy, optimizarlo y guardar el archivo 'model.glb' en la carpeta 'assets/web/'.";
+        errorMsg.style.display = 'block';
+      }
+    );
+
+    // --- Raycaster (Interacción de Toque) ---
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    let selectedOrganId = null;
+
+    function onPointerDown(event) {
+      if (organs.length === 0) return; // Si no hay modelo, no hacer nada
+
+      if (event.touches) {
+        mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+      } else {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      }
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(organs);
+
+      if (intersects.length > 0) {
+        const object = intersects[0].object;
+        const id = object.userData.id;
+        
+        highlightOrgan(id);
+
+        if (window.AnatomyChannel) {
+          window.AnatomyChannel.postMessage(id);
+        }
+      } else {
+        highlightOrgan(null);
+        if (window.AnatomyChannel) {
+          window.AnatomyChannel.postMessage("null");
+        }
+      }
+    }
+
+    function highlightOrgan(id) {
+      selectedOrganId = id;
+      organs.forEach(mesh => {
+        if (mesh.userData.id === id) {
+          mesh.material.emissive.setHex(mesh.userData.glowColor);
+          mesh.material.emissiveIntensity = 0.8;
+          mesh.material.roughness = 0.1;
+        } else {
+          mesh.material.emissive.setHex(0x000000);
+          mesh.material.emissiveIntensity = 0.0;
+          mesh.material.roughness = 0.4;
+        }
+      });
+    }
+
+    window.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('resize', onWindowResize, false);
+    
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    // --- Animación Continua ---
+    const clock = new THREE.Clock();
+    
+    function animate() {
+      requestAnimationFrame(animate);
+      const time = clock.getElapsedTime();
+
+      // Flotación sutil general (si ya hay modelo)
+      modelGroup.position.y = Math.sin(time * 0.5) * 0.1;
+
+      // Efecto pulsar en el órgano seleccionado interactivo
+      if (selectedOrganId && organs.length > 0) {
+         const pulse = 0.6 + Math.sin(time * 4) * 0.4;
+         organs.forEach(mesh => {
+            if (mesh.userData.id === selectedOrganId) {
+               mesh.material.emissiveIntensity = pulse;
+            }
+         });
+      }
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Comandos desde Flutter
+    window.selectOrganFromFlutter = function(id) {
+      highlightOrgan(id);
+    };
+
+    window.setCameraView = function(view) {
+      const targetRotation = view === 'front' ? 0 : Math.PI;
+      modelGroup.rotation.y = targetRotation;
+    };
+  </script>
+</body>
+</html>

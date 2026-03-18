@@ -1,6 +1,6 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../data/anatomy_data.dart';
-import '../widgets/body_painter.dart';
 
 class AnatomyScreen extends StatefulWidget {
   const AnatomyScreen({super.key});
@@ -14,8 +14,9 @@ class _AnatomyScreenState extends State<AnatomyScreen>
   bool _nursingMode = false;
   bool _isFrontView = true;
 
-  late AnimationController _glowCtrl;
-  late Animation<double> _glowAnim;
+  late WebViewController _webController;
+  bool _isWebLoaded = false;
+
   late AnimationController _panelCtrl;
   late Animation<double> _panelAnim;
   late AnimationController _scanCtrl;
@@ -24,12 +25,6 @@ class _AnatomyScreenState extends State<AnatomyScreen>
   @override
   void initState() {
     super.initState();
-    _glowCtrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1100),
-    )..repeat(reverse: true);
-    _glowAnim =
-        Tween<double>(begin: 0.4, end: 1.0).animate(_glowCtrl);
 
     _panelCtrl = AnimationController(
       vsync: this,
@@ -45,39 +40,60 @@ class _AnatomyScreenState extends State<AnatomyScreen>
     _scanAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _scanCtrl, curve: Curves.easeIn),
     );
+
+    // Initialize WebViewController
+    _webController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0xFF0D1117))
+      ..addJavaScriptChannel(
+        'AnatomyChannel',
+        onMessageReceived: (JavaScriptMessage message) {
+          final sys = message.message;
+          if (sys == 'null') {
+            _selectSystem(null);
+          } else {
+            _selectSystem(sys);
+          }
+        },
+      )
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageFinished: (String url) {
+            setState(() => _isWebLoaded = true);
+          },
+        ),
+      )
+      // Load local HTML asset
+      ..loadFlutterAsset('assets/web/anatomy3d.html');
   }
 
   @override
   void dispose() {
-    _glowCtrl.dispose();
     _panelCtrl.dispose();
     _scanCtrl.dispose();
     super.dispose();
   }
 
   void _selectSystem(String? key) {
+    if (!mounted) return;
     if (key == null) {
       _panelCtrl.reverse().then((_) {
         if (mounted) setState(() => _selectedSystem = null);
       });
+      // Deselect in web
+      _webController.runJavaScript('window.selectOrganFromFlutter(null);');
       return;
     }
     setState(() => _selectedSystem = key);
     _panelCtrl.forward(from: 0);
+    // Highlight in web
+    _webController.runJavaScript('window.selectOrganFromFlutter("$key");');
   }
 
-  void _onTap(Offset localPos, Size canvasSize) {
-    final norm = Offset(
-      localPos.dx / canvasSize.width,
-      localPos.dy / canvasSize.height,
-    );
-    // If panel is open, close it
-    if (_panelCtrl.isCompleted) {
-      _selectSystem(null);
-      return;
-    }
-    final key = systemFromNormalizedTap(norm, _isFrontView);
-    _selectSystem(key);
+  void _toggleView() {
+    setState(() => _isFrontView = !_isFrontView);
+    final viewName = _isFrontView ? 'front' : 'back';
+    _webController.runJavaScript('window.setCameraView("$viewName");');
   }
 
   @override
@@ -87,24 +103,17 @@ class _AnatomyScreenState extends State<AnatomyScreen>
       backgroundColor: const Color(0xFF0D1117),
       appBar: _buildAppBar(),
       body: LayoutBuilder(builder: (ctx, constraints) {
-        final sz = Size(constraints.maxWidth, constraints.maxHeight);
         return Stack(children: [
-          // --- Body diagram ---
-          GestureDetector(
-            onTapDown: (d) => _onTap(d.localPosition, sz),
-            child: AnimatedBuilder(
-              animation: Listenable.merge([_glowAnim]),
-              builder: (_, __) => CustomPaint(
-                painter: BodyPainter(
-                  selectedSystem: _selectedSystem,
-                  glowValue: _glowAnim.value,
-                  isFrontView: _isFrontView,
-                  nursingMode: _nursingMode,
-                ),
-                size: sz,
-              ),
-            ),
+          // --- WebGL 3D Viewer ---
+          Positioned.fill(
+            child: WebViewWidget(controller: _webController),
           ),
+
+          // --- Loading effect ---
+          if (!_isWebLoaded)
+            const Center(
+              child: CircularProgressIndicator(color: Color(0xFF00BFA5)),
+            ),
 
           // --- Scan animation (startup) ---
           AnimatedBuilder(
@@ -113,13 +122,10 @@ class _AnatomyScreenState extends State<AnatomyScreen>
               if (_scanCtrl.isCompleted) return const SizedBox();
               return CustomPaint(
                 painter: ScanLinePainter(progress: _scanAnim.value),
-                size: sz,
+                size: Size(constraints.maxWidth, constraints.maxHeight),
               );
             },
           ),
-
-          // --- System legend chips (bottom) ---
-          if (_selectedSystem == null) _buildLegend(sz),
 
           // --- Nursing mode badge ---
           if (_nursingMode)
@@ -141,7 +147,7 @@ class _AnatomyScreenState extends State<AnatomyScreen>
                   ],
                 ),
                 child: const Text(
-                  'ðŸ”¬ MODO ENFERMERÃA',
+                  '🔬 MODO ENFERMERÍA',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 10,
@@ -203,7 +209,7 @@ class _AnatomyScreenState extends State<AnatomyScreen>
             duration: const Duration(milliseconds: 300),
             child: _nursingMode
                 ? const Text(
-                    'ðŸ”¬ Atlas ClÃ­nico',
+                    '🔬 3D Clínico',
                     key: ValueKey('nursing'),
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -211,7 +217,7 @@ class _AnatomyScreenState extends State<AnatomyScreen>
                         color: Color(0xFFCE93D8)),
                   )
                 : const Text(
-                    'ðŸ«€ Atlas AnatÃ³mico 3D',
+                    '🫀 Motor webGL 3D',
                     key: ValueKey('anatomy'),
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                   ),
@@ -226,51 +232,6 @@ class _AnatomyScreenState extends State<AnatomyScreen>
           color: (_nursingMode
               ? const Color(0xFF7B2FBE)
               : const Color(0xFF00BFA5)).withValues(alpha: 0.4),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLegend(Size sz) {
-    return Positioned(
-      bottom: MediaQuery.of(context).padding.bottom + 70,
-      left: 0,
-      right: 0,
-      child: SizedBox(
-        height: 38,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          children: bodyRegions.map((r) {
-            return GestureDetector(
-              onTap: () => _selectSystem(r.key),
-              child: Container(
-                margin: const EdgeInsets.only(right: 8),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(
-                  color: r.color.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: r.color.withValues(alpha: 0.5)),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(r.emoji, style: const TextStyle(fontSize: 13)),
-                    const SizedBox(width: 4),
-                    Text(
-                      r.label,
-                      style: TextStyle(
-                        color: r.color,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
         ),
       ),
     );
@@ -307,11 +268,11 @@ class _AnatomyScreenState extends State<AnatomyScreen>
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(_nursingMode ? 'ðŸ”¬' : 'ðŸ©º',
+            Text(_nursingMode ? '🔬' : '🩺',
                 style: const TextStyle(fontSize: 18)),
             const SizedBox(width: 6),
             Text(
-              _nursingMode ? 'Modo ON' : 'EnfermerÃ­a',
+              _nursingMode ? 'Modo ON' : 'Enfermería',
               style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -325,17 +286,7 @@ class _AnatomyScreenState extends State<AnatomyScreen>
 
   Widget _buildViewToggle() {
     return GestureDetector(
-      onTap: () => setState(() {
-        _isFrontView = !_isFrontView;
-        if (_selectedSystem != null) {
-          final region =
-              bodyRegions.firstWhere((r) => r.key == _selectedSystem);
-          final hasView = _isFrontView
-              ? region.frontRects.isNotEmpty
-              : region.backRects.isNotEmpty;
-          if (!hasView) _selectSystem(null);
-        }
-      }),
+      onTap: _toggleView,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         decoration: BoxDecoration(
@@ -422,7 +373,7 @@ class _AnatomyScreenState extends State<AnatomyScreen>
                       ),
                       if (_nursingMode)
                         const Text(
-                          'ðŸ”¬ Modo EnfermerÃ­a',
+                          '🔬 Modo Enfermería',
                           style: TextStyle(
                               color: Color(0xFFCE93D8),
                               fontSize: 11,
@@ -467,7 +418,7 @@ class _AnatomyScreenState extends State<AnatomyScreen>
       children: [
         _sectionCard(
           icon: Icons.info_outline,
-          title: 'FunciÃ³n',
+          title: 'Función',
           color: const Color(0xFF00BFA5),
           child: Text(data.funcion,
               style: const TextStyle(
@@ -476,7 +427,7 @@ class _AnatomyScreenState extends State<AnatomyScreen>
         const SizedBox(height: 10),
         _sectionCard(
           icon: Icons.biotech,
-          title: 'AnatomÃ­a',
+          title: 'Anatomía',
           color: const Color(0xFF42A5F5),
           child: Text(data.anatomia,
               style: const TextStyle(
@@ -485,7 +436,7 @@ class _AnatomyScreenState extends State<AnatomyScreen>
         const SizedBox(height: 10),
         _sectionCard(
           icon: Icons.warning_amber_rounded,
-          title: 'PatologÃ­as comunes',
+          title: 'Patologías comunes',
           color: const Color(0xFFEF5350),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -504,7 +455,7 @@ class _AnatomyScreenState extends State<AnatomyScreen>
       children: [
         _sectionCard(
           icon: Icons.favorite,
-          title: 'FunciÃ³n fisiolÃ³gica',
+          title: 'Función fisiológica',
           color: const Color(0xFF00BFA5),
           child: Text(data.funcion,
               style: const TextStyle(
@@ -513,7 +464,7 @@ class _AnatomyScreenState extends State<AnatomyScreen>
         const SizedBox(height: 10),
         _sectionCard(
           icon: Icons.warning_amber_rounded,
-          title: 'PatologÃ­as',
+          title: 'Patologías',
           color: const Color(0xFFEF5350),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -537,7 +488,7 @@ class _AnatomyScreenState extends State<AnatomyScreen>
         const SizedBox(height: 10),
         _sectionCard(
           icon: Icons.medical_services,
-          title: 'Cuidados de EnfermerÃ­a',
+          title: 'Cuidados de Enfermería',
           color: const Color(0xFFCE93D8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -628,3 +579,29 @@ class _AnatomyScreenState extends State<AnatomyScreen>
   }
 }
 
+// Minimal scan line painter still used
+class ScanLinePainter extends CustomPainter {
+  final double progress;
+  const ScanLinePainter({required this.progress});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (progress >= 1.0) return;
+    final y = size.height * progress;
+    final scanPaint = Paint()
+      ..shader = const LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Colors.transparent,
+          Color(0x9900BFA5),
+          Colors.transparent,
+        ],
+        stops: [0.0, 0.5, 1.0],
+      ).createShader(Rect.fromLTWH(0, y - 20, size.width, 40));
+    canvas.drawRect(Rect.fromLTWH(0, y - 20, size.width, 40), scanPaint);
+  }
+
+  @override
+  bool shouldRepaint(ScanLinePainter old) => old.progress != progress;
+}

@@ -2,6 +2,61 @@ import 'package:flutter/material.dart';
 import '../services/vademecum_service.dart';
 import '../utils/app_colors.dart';
 
+// Repetimos el mapeo de categorías para coherencia visual
+const Map<String, _CategoriaInfo> _categoriaInfo = {
+  'Analgésicos / AINEs / Opioides': _CategoriaInfo(
+    color: Color(0xFFFF7043), 
+    icon: Icons.personal_injury_rounded,
+    imagePath: 'assets/images/medicamentos/categoria_analgesicos.png'
+  ),
+  'Antibióticos / Antiinfecciosos': _CategoriaInfo(
+    color: Color(0xFF00897B), 
+    icon: Icons.biotech_rounded,
+    imagePath: 'assets/images/medicamentos/categoria_antibioticos.png'
+  ),
+  'Cardiovascular / Antihipertensivos': _CategoriaInfo(
+    color: Color(0xFFE91E63), 
+    icon: Icons.favorite_rounded,
+    imagePath: 'assets/images/medicamentos/categoria_cardiovascular.png'
+  ),
+  'Respiratorio / Alergias': _CategoriaInfo(
+    color: Color(0xFF039BE5), 
+    icon: Icons.air_rounded,
+    imagePath: null
+  ),
+  'Endocrino / Metabólico': _CategoriaInfo(
+    color: Color(0xFF43A047), 
+    icon: Icons.water_drop_rounded,
+    imagePath: null
+  ),
+  'Gastrointestinal / Digestivo': _CategoriaInfo(
+    color: Color(0xFF8D6E63), 
+    icon: Icons.restaurant_rounded,
+    imagePath: null
+  ),
+  'Psiquiatría / Neurológicos': _CategoriaInfo(
+    color: Color(0xFF5E35B1), 
+    icon: Icons.psychology_rounded,
+    imagePath: 'assets/images/medicamentos/categoria_psiquiatricos.png'
+  ),
+  'Quirúrgicos / Anestesia / Emergencias': _CategoriaInfo(
+    color: Color(0xFF546E7A), 
+    icon: Icons.emergency_rounded,
+    imagePath: 'assets/images/medicamentos/categoria_quirurgicos.png'
+  ),
+};
+
+class _CategoriaInfo {
+  final Color color;
+  final IconData icon;
+  final String? imagePath;
+  const _CategoriaInfo({required this.color, required this.icon, this.imagePath});
+}
+
+_CategoriaInfo _infoForCategoria(String categoria) {
+  return _categoriaInfo[categoria] ?? const _CategoriaInfo(color: AppColors.primary, icon: Icons.medication_rounded);
+}
+
 class MedicamentoDetailScreen extends StatelessWidget {
   final Medicamento medicamento;
 
@@ -9,108 +64,277 @@ class MedicamentoDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final info = _infoForCategoria(medicamento.grupoFarmacologico);
+
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(medicamento.nombre, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: AppColors.primary,
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSectionCard(
-              title: 'Información General',
-              icon: Icons.info,
-              children: [
-                _buildInfoRow('Nombre Genérico', medicamento.nombre),
-                _buildInfoRow('Marca Común', medicamento.marcaComun),
-                _buildInfoRow('Grupo Farmacológico', medicamento.grupoFarmacologico),
-                _buildInfoRow('Subgrupo', medicamento.subgrupo),
-                _buildInfoRow('ATC Aproximado', medicamento.atc),
-              ],
+      body: CustomScrollView(
+        slivers: [
+          // ── App Bar con diseño Hero ──────────────────────────────────────
+          SliverAppBar(
+            expandedHeight: 180.0,
+            floating: false,
+            pinned: true,
+            elevation: 0,
+            backgroundColor: info.color,
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: true,
+              title: Text(
+                medicamento.nombre,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  shadows: [Shadow(blurRadius: 10, color: Colors.black26)],
+                ),
+              ),
+              background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [info.color, info.color.withValues(alpha: 0.7)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    ),
+                  ),
+                  if (info.imagePath != null)
+                    Positioned(
+                      right: 16,
+                      bottom: 16,
+                      child: Opacity(
+                        opacity: 0.8,
+                        child: Image.asset(
+                          info.imagePath!,
+                          height: 120,
+                          errorBuilder: (context, error, stackTrace) => const SizedBox(),
+                        ),
+                      ),
+                    )
+                  else
+                    Positioned(
+                      right: -20,
+                      bottom: -20,
+                      child: Icon(
+                        info.icon,
+                        size: 160,
+                        color: Colors.white.withValues(alpha: 0.15),
+                      ),
+                    ),
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
-            _buildSectionCard(
-              title: 'Presentación y Administración',
-              icon: Icons.medication,
-              children: [
-                _buildInfoRow('Presentación', medicamento.presentacion),
-                _buildInfoRow('Vía de Administración', medicamento.viaAdministracion),
-                _buildInfoRow('Laboratorios en Colombia', medicamento.laboratorios),
-              ],
+            iconTheme: const IconThemeData(color: Colors.white),
+          ),
+
+          // ── Contenido ───────────────────────────────────────────────────
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // ── Card de Resumen ──────────────────────────────────────
+                  _buildMainInfoCard(info),
+                  
+                  const SizedBox(height: 24),
+                  
+                  // ── Sección: ¿Para qué sirve? ─────────────────────────────
+                  _buildSectionHeader('¿Para qué sirve?', Icons.help_outline_rounded, info.color),
+                  _buildContentCard(
+                    child: Text(
+                      medicamento.sirvePara,
+                      style: const TextStyle(fontSize: 16, height: 1.5, color: AppColors.textPrimary),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ── Sección: Administración ──────────────────────────────
+                  _buildSectionHeader('Administración y Dósis', Icons.medication_rounded, info.color),
+                  _buildContentCard(
+                    child: Column(
+                      children: [
+                        _infoItem(Icons.inventory_2_outlined, 'Presentación', medicamento.presentacion),
+                        const Divider(height: 24),
+                        _infoItem(Icons.route_outlined, 'Vía de Administración', medicamento.viaAdministracion),
+                        const Divider(height: 24),
+                        _infoItem(Icons.person_outline_rounded, 'Dósis Adulto', medicamento.dosisAdulto),
+                        const Divider(height: 24),
+                        _infoItem(Icons.child_care_rounded, 'Dósis Pediátrica', medicamento.dosisPediatrica),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ── Sección: Contraindicaciones ───────────────────────────
+                  _buildSectionHeader('Contraindicaciones', Icons.warning_amber_rounded, Colors.red.shade700),
+                  _buildContentCard(
+                    borderColor: Colors.red.shade100,
+                    backgroundColor: Colors.red.shade50.withValues(alpha: 0.3),
+                    child: Text(
+                      medicamento.contraindicaciones,
+                      style: TextStyle(fontSize: 16, height: 1.5, color: Colors.red.shade900),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ── Sección: Seguridad ────────────────────────────────────
+                  _buildSectionHeader('Seguridad Clínica', Icons.security_rounded, info.color),
+                  _buildContentCard(
+                    child: Column(
+                      children: [
+                        _infoItem(Icons.pregnant_woman_rounded, 'Categoría Embarazo', medicamento.categoriaEmbarazo),
+                        const Divider(height: 24),
+                        _infoItem(Icons.coronavirus_outlined, 'Efectos Adversos', medicamento.efectosAdversos),
+                        const Divider(height: 24),
+                        _infoItem(Icons.sync_problem_rounded, 'Interacciones', medicamento.interacciones),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
-            _buildSectionCard(
-              title: 'Uso Clínico',
-              icon: Icons.medical_services,
-              children: [
-                _buildInfoRow('Indicaciones Principales', medicamento.indicaciones),
-                const Divider(),
-                _buildInfoRow('Dosis Adulto Referencial', medicamento.dosisAdulto),
-                _buildInfoRow('Dosis Pediátrica Referencial', medicamento.dosisPediatrica),
-              ],
-            ),
-            const SizedBox(height: 20),
-            _buildSectionCard(
-              title: 'Seguridad y Precauciones',
-              icon: Icons.warning_amber_rounded,
-              children: [
-                _buildInfoRow('Categoría Embarazo', medicamento.categoriaEmbarazo),
-                _buildInfoRow('Contraindicaciones', medicamento.contraindicaciones),
-                _buildInfoRow('Efectos Adversos Comunes', medicamento.efectosAdversos),
-                _buildInfoRow('Interacciones Importantes', medicamento.interacciones),
-              ],
-            ),
-            const SizedBox(height: 80), // Espacio para el anuncio
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildSectionCard({required String title, required IconData icon, required List<Widget> children}) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+  Widget _buildMainInfoCard(_CategoriaInfo info) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(icon, color: AppColors.primary, size: 24),
-                const SizedBox(width: 10),
-                Expanded(
+                Text(
+                  medicamento.marcaComun == 'N/A' || medicamento.marcaComun == '' 
+                    ? 'Medicamento Genérico' : medicamento.marcaComun,
+                  style: TextStyle(
+                    color: info.color,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  medicamento.grupoFarmacologico,
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: Text(
-                    title,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+                    'ATC: ${medicamento.atc}',
+                    style: TextStyle(color: Colors.grey.shade700, fontSize: 12, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
-            const Divider(height: 30),
-            ...children,
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildInfoRow(String label, String value) {
+  Widget _buildSectionHeader(String title, IconData icon, Color color) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.only(left: 4, bottom: 12),
+      child: Row(
         children: [
-          Text(label, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.textSecondary, fontSize: 13)),
-          const SizedBox(height: 4),
-          Text(value, style: const TextStyle(fontSize: 15, color: AppColors.textPrimary)),
+          Icon(icon, color: color, size: 22),
+          const SizedBox(width: 10),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildContentCard({required Widget child, Color? borderColor, Color? backgroundColor}) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: backgroundColor ?? Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: borderColor ?? Colors.grey.shade100),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+
+  Widget _infoItem(IconData icon, String label, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade50,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(icon, size: 20, color: Colors.grey.shade600),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: TextStyle(color: Colors.grey.shade500, fontSize: 12, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                value,
+                style: const TextStyle(color: AppColors.textPrimary, fontSize: 15, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
