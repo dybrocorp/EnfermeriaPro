@@ -133,8 +133,8 @@ def main():
         time.sleep(random.uniform(0.5, 1.5))
         
         # Límite para el ciclo actual
-        if count >= 2000: 
-            print("Alcanzado límite de 2000 para este ciclo.")
+        if count >= 2500: 
+            print("Alcanzado límite de 2500 para este ciclo.")
             break
 
     with open(output_file, 'w', encoding='utf-8') as f:
