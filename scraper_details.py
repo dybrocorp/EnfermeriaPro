@@ -61,7 +61,7 @@ def get_text_after_header(soup, header_text):
 
 def scrape_medication(url):
     try:
-        response = requests.get(url, headers=headers, timeout=10)
+        response = requests.get(url, headers=headers, timeout=20)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, 'lxml')
         
@@ -130,11 +130,11 @@ def main():
                     json.dump(list(final_data.values()), f, indent=4, ensure_ascii=False)
         
         count += 1
-        time.sleep(random.uniform(0.5, 1.5))
+        time.sleep(random.uniform(2.0, 5.0))
         
         # Límite para el ciclo actual
-        if count >= 2500: 
-            print("Alcanzado límite de 2500 para este ciclo.")
+        if count >= 3000: 
+            print("Alcanzado límite de 3000 para este ciclo.")
             break
 
     with open(output_file, 'w', encoding='utf-8') as f:
