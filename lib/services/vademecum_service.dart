@@ -41,20 +41,20 @@ class Medicamento {
   factory Medicamento.fromMap(Map<String, dynamic> data, {bool premium = false}) {
     return Medicamento(
       nombre: data['Nombre generico'] ?? 'Sin nombre',
-      marcaComun: data['Marca comun'] ?? 'N/A',
-      grupoFarmacologico: data['Grupo farmacologico'] ?? 'Sin Categoría',
-      subgrupo: data['Subgrupo'] ?? 'N/A',
-      presentacion: data['Presentacion'] ?? 'N/A',
-      dosisAdulto: data['Dosis adulto referencial'] ?? 'N/A',
-      dosisPediatrica: data['Dosis pediatrica referencial'] ?? 'N/A',
-      viaAdministracion: data['Via administracion'] ?? 'N/A',
-      sirvePara: data['Sirve para'] ?? data['Indicaciones principales'] ?? 'No especificado',
+      marcaComun: data['Laboratorio'] ?? 'N/A', // Usamos Laboratorio como marca común para mostrarlo en el subtítulo
+      grupoFarmacologico: data['Categoria'] ?? 'Sin Categoría',
+      subgrupo: data['ATC'] ?? 'N/A',
+      presentacion: data['Presentacion'] ?? 'Consultar',
+      dosisAdulto: data['Dosificacion'] ?? 'Ver detalles',
+      dosisPediatrica: 'Según peso (ver detalles)',
+      viaAdministracion: data['Via'] ?? 'Oral/Inyectable',
+      sirvePara: data['Indicaciones'] ?? 'No especificado',
       contraindicaciones: data['Contraindicaciones'] ?? 'No especificado',
-      efectosAdversos: data['Efectos adversos comunes'] ?? 'N/A',
-      interacciones: data['Interacciones importantes'] ?? 'N/A',
-      laboratorios: data['Laboratorios comunes Colombia'] ?? 'N/A',
-      categoriaEmbarazo: data['Categoria embarazo'] ?? 'N/A',
-      atc: data['ATC aproximado'] ?? 'N/A',
+      efectosAdversos: data['Mecanismo'] ?? 'N/A',
+      interacciones: 'Ver precauciones',
+      laboratorios: data['Laboratorio'] ?? 'N/A',
+      categoriaEmbarazo: 'Consultar riesgo',
+      atc: data['ATC'] ?? 'N/A',
       isPremium: data['isPremium'] ?? premium,
     );
   }

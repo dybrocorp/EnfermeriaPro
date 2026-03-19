@@ -4,45 +4,41 @@ import '../utils/app_colors.dart';
 
 // Repetimos el mapeo de categorías para coherencia visual
 const Map<String, _CategoriaInfo> _categoriaInfo = {
-  'Analgésicos / AINEs / Opioides': _CategoriaInfo(
-    color: Color(0xFFFF7043), 
+  'Analgésicos': _CategoriaInfo(
+    color: Color(0xFFFF5252), 
     icon: Icons.personal_injury_rounded,
-    imagePath: 'assets/images/medicamentos/categoria_analgesicos.png'
   ),
-  'Antibióticos / Antiinfecciosos': _CategoriaInfo(
-    color: Color(0xFF00897B), 
+  'Antibióticos': _CategoriaInfo(
+    color: Color(0xFF00C853), 
     icon: Icons.biotech_rounded,
-    imagePath: 'assets/images/medicamentos/categoria_antibioticos.png'
   ),
-  'Cardiovascular / Antihipertensivos': _CategoriaInfo(
+  'Cardiovascular': _CategoriaInfo(
     color: Color(0xFFE91E63), 
     icon: Icons.favorite_rounded,
-    imagePath: 'assets/images/medicamentos/categoria_cardiovascular.png'
   ),
-  'Respiratorio / Alergias': _CategoriaInfo(
-    color: Color(0xFF039BE5), 
+  'Respiratorio': _CategoriaInfo(
+    color: Color(0xFF00B0FF), 
     icon: Icons.air_rounded,
-    imagePath: null
   ),
-  'Endocrino / Metabólico': _CategoriaInfo(
-    color: Color(0xFF43A047), 
+  'Endocrinología (Hormonales)': _CategoriaInfo(
+    color: Color(0xFFFFAB00), 
     icon: Icons.water_drop_rounded,
-    imagePath: null
   ),
-  'Gastrointestinal / Digestivo': _CategoriaInfo(
-    color: Color(0xFF8D6E63), 
+  'Gástrico (Poliácidos)': _CategoriaInfo(
+    color: Color(0xFF795548), 
     icon: Icons.restaurant_rounded,
-    imagePath: null
   ),
-  'Psiquiatría / Neurológicos': _CategoriaInfo(
-    color: Color(0xFF5E35B1), 
+  'Psiquiátricos': _CategoriaInfo(
+    color: Color(0xFF6200EA), 
     icon: Icons.psychology_rounded,
-    imagePath: 'assets/images/medicamentos/categoria_psiquiatricos.png'
   ),
-  'Quirúrgicos / Anestesia / Emergencias': _CategoriaInfo(
-    color: Color(0xFF546E7A), 
-    icon: Icons.emergency_rounded,
-    imagePath: 'assets/images/medicamentos/categoria_quirurgicos.png'
+  'Digestivo y Metabólico': _CategoriaInfo(
+      color: Color(0xFF4CAF50),
+      icon: Icons.health_and_safety_rounded,
+  ),
+  'Antineoplásicos (Oncología)': _CategoriaInfo(
+      color: Color(0xFF263238),
+      icon: Icons.medical_services_rounded,
   ),
 };
 
@@ -54,7 +50,17 @@ class _CategoriaInfo {
 }
 
 _CategoriaInfo _infoForCategoria(String categoria) {
-  return _categoriaInfo[categoria] ?? const _CategoriaInfo(color: AppColors.primary, icon: Icons.medication_rounded);
+  if (categoria.contains('Analgésicos')) return _categoriaInfo['Analgésicos']!;
+  if (categoria.contains('Antibióticos')) return _categoriaInfo['Antibióticos']!;
+  if (categoria.contains('Cardio')) return _categoriaInfo['Cardiovascular']!;
+  if (categoria.contains('Resp')) return _categoriaInfo['Respiratorio']!;
+  if (categoria.contains('Endocrino')) return _categoriaInfo['Endocrinología (Hormonales)']!;
+  if (categoria.contains('Gástrico')) return _categoriaInfo['Gástrico (Poliácidos)']!;
+  if (categoria.contains('Psic')) return _categoriaInfo['Psiquiátricos']!;
+  if (categoria.contains('Onco')) return _categoriaInfo['Antineoplásicos (Oncología)']!;
+  if (categoria.contains('Digestivo')) return _categoriaInfo['Digestivo y Metabólico']!;
+
+  return _categoriaInfo[categoria] ?? const _CategoriaInfo(color: Color(0xFF607D8B), icon: Icons.medication_rounded);
 }
 
 class MedicamentoDetailScreen extends StatelessWidget {

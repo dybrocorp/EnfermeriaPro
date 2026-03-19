@@ -8,45 +8,50 @@ import '../widgets/banner_ad_widget.dart';
 
 // ── Mapa de categorías clínicas → color e ícono ──────────────────────────
 const Map<String, _CategoriaInfo> _categoriaInfo = {
-  'Analgésicos / AINEs / Opioides': _CategoriaInfo(
-    color: Color(0xFFFF7043), 
+  'Analgésicos': _CategoriaInfo(
+    color: Color(0xFFFF5252), 
     icon: Icons.personal_injury_rounded,
     nombreCorto: 'Analgésicos'
   ),
-  'Antibióticos / Antiinfecciosos': _CategoriaInfo(
-    color: Color(0xFF00897B), 
+  'Antibióticos': _CategoriaInfo(
+    color: Color(0xFF00C853), 
     icon: Icons.biotech_rounded,
     nombreCorto: 'Antibióticos'
   ),
-  'Cardiovascular / Antihipertensivos': _CategoriaInfo(
+  'Cardiovascular': _CategoriaInfo(
     color: Color(0xFFE91E63), 
     icon: Icons.favorite_rounded,
     nombreCorto: 'Cardio'
   ),
-  'Respiratorio / Alergias': _CategoriaInfo(
-    color: Color(0xFF039BE5), 
+  'Respiratorio': _CategoriaInfo(
+    color: Color(0xFF00B0FF), 
     icon: Icons.air_rounded,
     nombreCorto: 'Resp'
   ),
-  'Endocrino / Metabólico': _CategoriaInfo(
-    color: Color(0xFF43A047), 
+  'Endocrinología (Hormonales)': _CategoriaInfo(
+    color: Color(0xFFFFAB00), 
     icon: Icons.water_drop_rounded,
     nombreCorto: 'Endocrino'
   ),
-  'Gastrointestinal / Digestivo': _CategoriaInfo(
-    color: Color(0xFF8D6E63), 
+  'Gástrico (Poliácidos)': _CategoriaInfo(
+    color: Color(0xFF795548), 
     icon: Icons.restaurant_rounded,
-    nombreCorto: 'Gastro'
+    nombreCorto: 'Gástrico'
   ),
-  'Psiquiatría / Neurológicos': _CategoriaInfo(
-    color: Color(0xFF5E35B1), 
+  'Psiquiátricos': _CategoriaInfo(
+    color: Color(0xFF6200EA), 
     icon: Icons.psychology_rounded,
-    nombreCorto: 'Neuro/Psic'
+    nombreCorto: 'Psiquiatría'
   ),
-  'Quirúrgicos / Anestesia / Emergencias': _CategoriaInfo(
-    color: Color(0xFF546E7A), 
-    icon: Icons.emergency_rounded,
-    nombreCorto: 'Quirúrgicos'
+  'Digestivo y Metabólico': _CategoriaInfo(
+      color: Color(0xFF4CAF50),
+      icon: Icons.health_and_safety_rounded,
+      nombreCorto: 'Digestivo'
+  ),
+  'Antineoplásicos (Oncología)': _CategoriaInfo(
+      color: Color(0xFF263238),
+      icon: Icons.medical_services_rounded,
+      nombreCorto: 'Onco'
   ),
 };
 
@@ -58,8 +63,19 @@ class _CategoriaInfo {
 }
 
 _CategoriaInfo _infoForCategoria(String categoria) {
+  // Búsqueda flexible por palabra clave si no hay match exacto
+  if (categoria.contains('Analgésicos')) return _categoriaInfo['Analgésicos']!;
+  if (categoria.contains('Antibióticos')) return _categoriaInfo['Antibióticos']!;
+  if (categoria.contains('Cardio')) return _categoriaInfo['Cardiovascular']!;
+  if (categoria.contains('Resp')) return _categoriaInfo['Respiratorio']!;
+  if (categoria.contains('Endocrino')) return _categoriaInfo['Endocrinología (Hormonales)']!;
+  if (categoria.contains('Gástrico')) return _categoriaInfo['Gástrico (Poliácidos)']!;
+  if (categoria.contains('Psic')) return _categoriaInfo['Psiquiátricos']!;
+  if (categoria.contains('Onco')) return _categoriaInfo['Antineoplásicos (Oncología)']!;
+  if (categoria.contains('Digestivo')) return _categoriaInfo['Digestivo y Metabólico']!;
+
   return _categoriaInfo[categoria] ?? const _CategoriaInfo(
-    color: Color(0xFF039BE5), 
+    color: Color(0xFF607D8B), 
     icon: Icons.medication_rounded,
     nombreCorto: 'Otros'
   );
@@ -67,14 +83,14 @@ _CategoriaInfo _infoForCategoria(String categoria) {
 
 const List<String> _categories = [
   'Todos',
-  'Analgésicos / AINEs / Opioides',
-  'Antibióticos / Antiinfecciosos',
-  'Cardiovascular / Antihipertensivos',
-  'Respiratorio / Alergias',
-  'Endocrino / Metabólico',
-  'Gastrointestinal / Digestivo',
-  'Psiquiatría / Neurológicos',
-  'Quirúrgicos / Anestesia / Emergencias',
+  'Analgésicos',
+  'Antibióticos',
+  'Cardiovascular',
+  'Gástrico (Poliácidos)',
+  'Psiquiátricos',
+  'Respiratorio',
+  'Endocrinología (Hormonales)',
+  'Antineoplásicos (Oncología)',
 ];
 
 class PharmacologyScreen extends StatefulWidget {
@@ -123,7 +139,7 @@ class _PharmacologyScreenState extends State<PharmacologyScreen> {
             m.marcaComun.toLowerCase().contains(query);
 
         final matchesCategory = _selectedCategory == 'Todos' ||
-            m.grupoFarmacologico == _selectedCategory;
+            m.grupoFarmacologico.contains(_selectedCategory);
 
         return matchesSearch && matchesCategory;
       }).toList();
@@ -388,8 +404,8 @@ class _MedicamentoItem extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        med.marcaComun == 'N/A' || med.marcaComun == '' 
-                          ? 'Genérico' : med.marcaComun,
+                        med.laboratorios == 'N/A' || med.laboratorios == 'Genérico'
+                          ? 'Générico' : med.laboratorios,
                         style: TextStyle(
                           color: info.color,
                           fontWeight: FontWeight.w600,
