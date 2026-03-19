@@ -1,0 +1,4 @@
+-keep class com.dexterous.flutterlocalnotifications.** { *; }
+-keep class com.google.gson.** { *; }
+-keepattributes Signature, *Annotation*, InnerClasses
+-dontwarn com.dexterous.flutterlocalnotifications.**
